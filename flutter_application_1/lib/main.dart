@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/firstpage.dart'; //подключаем класс FirstPage
-import 'package:flutter_application_1/pages/instructionpage.dart';//подключаем класс InstructionPage
-import 'package:flutter_application_1/pages/testpage.dart';//подключаем класс TestPage
+import 'package:flutter_application_1/pages/firstpage.dart';
+import 'package:flutter_application_1/pages/instructionpage.dart';
+import 'package:flutter_application_1/pages/testpage.dart';
 
 
 void main() => runApp(MaterialApp(
 
-  initialRoute: '/', //начальная страница
+  initialRoute: '/',
   routes: {
-    '/':(context) => FirstPage(), //главная страница
+    '/':(context) => FirstPage(), 
     '/primary':(context) => InstructionPage(),
     '/secondary':(context) => TestPage(),
 

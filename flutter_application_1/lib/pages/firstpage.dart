@@ -18,13 +18,10 @@ class _FirstPageState extends State<FirstPage> {
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
           child: Row(
-            textDirection: TextDirection.ltr,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            verticalDirection: VerticalDirection.down,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20, 20, 250, 30),
+              const Expanded(
+                flex: 9,
                 child: Text(
                   'Главная',
                   style: TextStyle(
@@ -33,8 +30,8 @@ class _FirstPageState extends State<FirstPage> {
                   ),
                 )
               ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+              Expanded(
+                flex: 1,
                 child: TextButton(
                   style: TextButton.styleFrom(
                     minimumSize: const Size(20, 40),
