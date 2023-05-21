@@ -52,18 +52,18 @@ class _FirstPageState extends State<FirstPage> {
             ]
           ),
         ),
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        Container(
+          margin: EdgeInsets.only(left:20, right:20, top:15),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(300, 70),
+              minimumSize: const Size(350, 70),
               backgroundColor: Colors.grey,
             ),
             child: const Text(
               'Получить инструкции',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 18
+                fontSize: 20
               ),
             ),
             onPressed: () {
@@ -74,18 +74,18 @@ class _FirstPageState extends State<FirstPage> {
             }
           )
         ),
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+        Container(
+          margin: EdgeInsets.only(left:20, right:20, top:25),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(300, 70),
+              minimumSize: const Size(350, 70),
               backgroundColor: Colors.grey,
             ),
             child: const Text(
               'Ввести исходные данные',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 18
+                fontSize: 20
               ),
             ),
             onPressed: () {
@@ -107,7 +107,7 @@ class _FirstPageState extends State<FirstPage> {
               );
               },
               style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(300, 40)),
+                minimumSize: MaterialStateProperty.all(const Size(350, 40)),
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
               ),
               child: const Text(
