@@ -91,7 +91,7 @@ class _FirstPageState extends State<FirstPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const TestPage()),
+                MaterialPageRoute(builder: (context) => TestPage()),
               );
             }
           )
@@ -103,7 +103,7 @@ class _FirstPageState extends State<FirstPage> {
               onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const TestPage()),
+                MaterialPageRoute(builder: (context) => TestPage()),
               );
               },
               style: ButtonStyle(

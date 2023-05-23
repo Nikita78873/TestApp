@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'dart:convert';
+
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+
 class InstructionPage extends StatefulWidget {
   const InstructionPage({Key? key}) : super(key: key);
 
@@ -8,11 +14,22 @@ class InstructionPage extends StatefulWidget {
 }
 
 class _InstructionPageState extends State<InstructionPage> {
+  List _items = [];
+
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/bd.json');
+    final data = await json.decode(response);
+    setState(() {
+      _items = data["encoding_attribute"];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    readJson();
     return Scaffold(
       body: Column(children: <Widget>[
-        Padding(
+        /*Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -49,17 +66,19 @@ class _InstructionPageState extends State<InstructionPage> {
             ]
           ),
         ),
-        Expanded(
+        */
+        Container(
           child: Row(
-            children: const [
-              Flexible(
-                child: Text(
-                  'dsd'
-                ),
-              )
+            children: [
+              ListView.builder(
+                itemCount: _items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(title: Text(_items[index]["sign"]));
+                }
+              ),
             ],
           )
-        )  
+        ),
       ]),
     );
   }
