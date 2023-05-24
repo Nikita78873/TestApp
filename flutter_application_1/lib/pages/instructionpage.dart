@@ -6,14 +6,27 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-class InstructionPage extends StatefulWidget {
-  const InstructionPage({Key? key}) : super(key: key);
-
+class InstructionPage extends StatelessWidget {
   @override
-  State<InstructionPage> createState() => _InstructionPageState();
+  Widget build(BuildContext context) {
+ 
+    return MaterialApp(
+      home: Scaffold(
+        body: ReadJson(),
+      ),
+    );
+  }
 }
 
-class _InstructionPageState extends State<InstructionPage> {
+class ReadJson extends StatefulWidget {
+  const ReadJson({Key? key}) : super(key: key);
+ 
+  @override
+  _ReadJSonState createState() => _ReadJSonState();
+}
+ 
+
+class _ReadJSonState extends State<ReadJson> {
   List _items = [];
 
   Future<void> readJson() async {
@@ -27,10 +40,10 @@ class _InstructionPageState extends State<InstructionPage> {
   @override
   Widget build(BuildContext context) {
     readJson();
-    return Scaffold(
-      body: Column(children: <Widget>[
-        /*Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+    return Container(
+      child: Column(children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(top: 30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -58,7 +71,7 @@ class _InstructionPageState extends State<InstructionPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const InstructionPage()),
+                      MaterialPageRoute(builder: (context) => InstructionPage()),
                     );
                   }
                 )
@@ -66,18 +79,51 @@ class _InstructionPageState extends State<InstructionPage> {
             ]
           ),
         ),
-        */
         Container(
-          child: Row(
-            children: [
-              ListView.builder(
+        margin: EdgeInsets.only(top: 10, bottom: 10),
+          child: SizedBox(
+            height: 250,
+              child: ListView.builder(
                 itemCount: _items.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ListTile(title: Text(_items[index]["sign"]));
+                  return Container(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Text(_items[index]["sign"]),
+                          title: Text(_items[index]["number"]),
+                          subtitle: Text(_items[index]["n1"]),
+                        ),
+                        Divider(),
+                      ]
+                    )
+                  );
                 }
               ),
-            ],
-          )
+            )
+        ),
+        Container(
+        margin: EdgeInsets.only(top: 10, bottom: 10),
+          child: SizedBox(
+            height: 250,
+              child: ListView.builder(
+                itemCount: _items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Text(_items[index]["sign"]),
+                          title: Text(_items[index]["number"]),
+                          subtitle: Text(_items[index]["n1"]),
+                        ),
+                        Divider(),
+                      ]
+                    )
+                  );
+                }
+              ),
+            )
         ),
       ]),
     );
