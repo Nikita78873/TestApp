@@ -91,3 +91,4 @@ flutter:
   assets:
     - assets/bd.json
     - assets/recomendations.json
+    - assets/questions.json

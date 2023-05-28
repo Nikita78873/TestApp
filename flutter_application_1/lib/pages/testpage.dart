@@ -77,7 +77,7 @@ class _ReadJsonState extends State<ReadJson> {
                 Expanded(
                   flex: 8,
                   child: Text(
-                    "Вопрос " + (position + 1).toString(),
+                    "Вопрос " + (position + 1).toString() + " из " + _items.length.toString(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 18
@@ -100,6 +100,15 @@ class _ReadJsonState extends State<ReadJson> {
                   )
                 )
               ]
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 50, left: 20, right: 20),
+              child: Text(
+                _items[position]["text_of_sign"],
+                style: const TextStyle(
+                  fontSize: 20
+                ),
+              )
             ),
             Container(
               margin: const EdgeInsets.only(top: 50),
@@ -146,13 +155,13 @@ class _ReadJsonState extends State<ReadJson> {
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(const Size(350, 40)),
+                    minimumSize: MaterialStateProperty.all(const Size(350, 70)),
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                   ),
                   child: const Text(
                     'Next question',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 24,
                     )
                   ),
                 )
