@@ -6,6 +6,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
+import 'firstpage.dart';
+
 class TestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -53,65 +55,111 @@ class _ReadJsonState extends State<ReadJson> {
       },
       itemCount: _items.length,
       itemBuilder: (context, position){
-        return Column(
+        return Container(
+          margin: EdgeInsets.only(top: 30),
+          child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children:[
-                ElevatedButton(
-                  child: Text('Back'),
-                  onPressed: (){
-                    _pageController.animateToPage(--pageChanged, duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
-                  }
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    child: const Icon(
+                      color: Colors.black,
+                      Icons.arrow_back
+                    ),
+                    onPressed: (){
+                      _pageController.animateToPage(--pageChanged, duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
+                    }
+                  ),
                 ),
-                Text("Вопрос " + (position + 1).toString())
+                Expanded(
+                  flex: 8,
+                  child: Text(
+                    "Вопрос " + (position + 1).toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18
+                    ),
+                  )
+                ),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => FirstPage()),
+                      );
+                    },
+                    child: const Icon(
+                      color: Colors.black,
+                      Icons.close
+                    )
+                  )
+                )
               ]
             ),
-            SizedBox(
-              height:200,
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        CheckboxListTile(
-                          title: Text(_items[position]["n1"]),
-                          value: checkedValue1,
-                          onChanged: (value) {
-                            setState(() {
-                              checkedValue1 = value!;
-                            });
-                          },
-                        ),
-                        Divider(),
-                        CheckboxListTile(
-                          title: Text(_items[position]["n2"]),
-                          value: checkedValue2,
-                          onChanged: (value) {
-                            setState(() {
-                              checkedValue2 = value!;
-                            });
-                          },
-                        ),
-                        Divider(),
-                      ],
-                    ),
-                  );
-                }
+            Container(
+              margin: const EdgeInsets.only(top: 50),
+              child:SizedBox(
+                height:200,
+                child: ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      child: Column(
+                        children: [
+                          CheckboxListTile(
+                            title: Text(_items[position]["n1"]),
+                            value: checkedValue1,
+                            onChanged: (value) {
+                              setState(() {
+                                checkedValue1 = value!;
+                              });
+                            },
+                          ),
+                          Divider(),
+                          CheckboxListTile(
+                            title: Text(_items[position]["n2"]),
+                            value: checkedValue2,
+                            onChanged: (value) {
+                              setState(() {
+                                checkedValue2 = value!;
+                              });
+                            },
+                          ),
+                          Divider(),
+                        ],
+                      ),
+                    );
+                  }
+                )
               )
             ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
-                  child: Text("Next question"),
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
-                  }
+                  },
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(const Size(350, 40)),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                  ),
+                  child: const Text(
+                    'Next question',
+                    style: TextStyle(
+                      fontSize: 18,
+                    )
+                  ),
                 )
               )
             )
-          ]
+            ]
+          )
         );
       }
     );
