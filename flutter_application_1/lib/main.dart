@@ -8,10 +8,9 @@ void main() => runApp(MaterialApp(
 
   initialRoute: '/',
   routes: {
-    '/':(context) => FirstPage(), 
+    '/':(context) => FirstPage(activebut: false), 
     '/primary':(context) => InstructionPage(),
     '/secondary':(context) => TestPage(),
-
   },
 ),
 );
