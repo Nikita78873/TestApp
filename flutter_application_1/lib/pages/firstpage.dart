@@ -114,7 +114,7 @@ class _FirstPageState extends State<FirstPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: "32")),
+                MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction)),
               );
             }
           )

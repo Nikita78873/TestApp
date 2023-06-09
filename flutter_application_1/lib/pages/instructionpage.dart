@@ -77,13 +77,13 @@ class _ReadJSonsState extends State<ReadJsons> {
           child: SizedBox(
             height: 250,
               child: ListView.builder(
-                itemCount: _items.length,
+                itemCount: 1,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     child: Column(
                       children: [
                         ListTile(
-                          leading: Text(fineinstruction),
+                          title: Text(fineinstruction),
                         ),
                         Divider(),
                       ]

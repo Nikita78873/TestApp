@@ -54,7 +54,6 @@ class _ReadJsonState extends State<ReadJson> {
   bool checkedValue6 = false;
   bool checkedValue7 = false;
   List<String> codes = List<String>.generate(100, (index) => '');
-  //List<String> codes = [];
   String tempcode = '';
   String rec = '';
   String coderec = '';
@@ -188,11 +187,12 @@ class _ReadJsonState extends State<ReadJson> {
                     checkedValue2 = false;
                     for (var i = 0; i < _recomendations.length; i++) {
                       rec = _recomendations[i]["codes"];
-                      for (var code1 = 1; 20 > code1; code1++){
-                        for (var code2 = 1; 20 > code2; code2++){
+                      for (var code1 = 0; 30 > code1; code1++){
+                        for (var code2 = 0; 30 > code2; code2++){
                           codesrec = codes[code1] + "+" + codes[code2];
                           if (rec.contains(codesrec)){
                             finerecomedation = _recomendations[i]["recomendation"];
+                            print(finerecomedation);
                           }
                         }
                       }
@@ -535,7 +535,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "412")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "31222")),
                       );
                     },
                     child: const Icon(
@@ -618,7 +618,7 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
-                     if (checkedValue1){
+                    if (checkedValue1){
                       tempcode = (position+1).toString();
                       tempcode = tempcode + "n1";
                       codes[position] = tempcode;
@@ -700,7 +700,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "414")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "31222")),
                       );
                     },
                     child: const Icon(
