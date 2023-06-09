@@ -8,8 +8,8 @@ void main() => runApp(MaterialApp(
 
   initialRoute: '/',
   routes: {
-    '/':(context) => FirstPage(activebut: false), 
-    '/primary':(context) => InstructionPage(),
+    '/':(context) => FirstPage(activebut: false, fineinstruction: "322"), 
+    '/primary':(context) => ReadJsons(fineinstruction: ""),
     '/secondary':(context) => TestPage(),
   },
 ),

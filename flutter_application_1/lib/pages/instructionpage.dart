@@ -6,33 +6,20 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-class InstructionPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
- 
-    return MaterialApp(
-      home: Scaffold(
-        body: ReadJson(),
-      ),
-    );
-  }
-}
 
-class ReadJson extends StatefulWidget {
-  const ReadJson({Key? key}) : super(key: key);
+class ReadJsons extends StatefulWidget {
+  final String fineinstruction;
+  const ReadJsons({super.key, required this.fineinstruction});
  
   @override
-  _ReadJSonState createState() => _ReadJSonState();
+  State<ReadJsons> createState() => _ReadJSonsState(fineinstruction: fineinstruction);
 }
  
 
-class _ReadJSonState extends State<ReadJson> {
-  void initState() {
-    super.initState();
-    
-  }
-
+class _ReadJSonsState extends State<ReadJsons> {
   List _items = [];
+  final String fineinstruction;
+  _ReadJSonsState({required this.fineinstruction});
 
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/bd.json');
@@ -45,7 +32,8 @@ class _ReadJSonState extends State<ReadJson> {
   @override
   Widget build(BuildContext context) {
     readJson();
-    return Container(
+    return Scaffold(
+    body: Container(
       child: Column(children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 30),
@@ -76,7 +64,7 @@ class _ReadJSonState extends State<ReadJson> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => InstructionPage()),
+                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction)),
                     );
                   }
                 )
@@ -95,7 +83,7 @@ class _ReadJSonState extends State<ReadJson> {
                     child: Column(
                       children: [
                         ListTile(
-                          leading: Text(_items[index]["sign"]),
+                          leading: Text(fineinstruction),
                         ),
                         Divider(),
                       ]
@@ -129,6 +117,7 @@ class _ReadJSonState extends State<ReadJson> {
             )
         ),
       ]),
+    )
     );
   }
 }

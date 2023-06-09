@@ -8,10 +8,11 @@ import 'dart:io';
 
 class FirstPage extends StatefulWidget {
   final bool activebut;
-  const FirstPage({super.key, required this.activebut});
+  final String fineinstruction;
+  const FirstPage({super.key, required this.activebut, required this.fineinstruction});
 
   @override
-  State<FirstPage> createState() => _FirstPageState(activebut: activebut);
+  State<FirstPage> createState() => _FirstPageState(activebut: activebut, fineinstruction: fineinstruction);
 }
 
 class _FirstPageState extends State<FirstPage> {
@@ -22,8 +23,9 @@ class _FirstPageState extends State<FirstPage> {
   }
 
   final bool activebut;
+  final String fineinstruction;
 
-  _FirstPageState({required this.activebut});
+  _FirstPageState({required this.activebut, required this.fineinstruction});
   
   showAlertDialog(BuildContext context) {
 
@@ -87,7 +89,7 @@ class _FirstPageState extends State<FirstPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => InstructionPage()),
+                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction)),
                     );
                   }
                 )
@@ -112,7 +114,7 @@ class _FirstPageState extends State<FirstPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => InstructionPage()),
+                MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: "32")),
               );
             }
           )
@@ -197,7 +199,7 @@ class _FirstPageState extends State<FirstPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => InstructionPage()),
+                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: "32")),
                     );
                   }
                 )

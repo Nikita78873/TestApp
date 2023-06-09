@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/pages/instructionpage.dart';
 
 import 'firstpage.dart';
 
@@ -109,7 +110,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false)),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "123")),
                       );
                     },
                     child: const Icon(
@@ -171,29 +172,35 @@ class _ReadJsonState extends State<ReadJson> {
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const FirstPage(activebut: true)),
-                    );
-                    for (var i = 0; i < _recomendations.length; i++){
+                    if (checkedValue1){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n1";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue2){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n2";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    checkedValue1 = false;
+                    checkedValue2 = false;
+                    for (var i = 0; i < _recomendations.length; i++) {
                       rec = _recomendations[i]["codes"];
-                      for (var j = 0; rec.indexOf(' ', j) > 0; j = j + count){
-                        if ((rec.indexOf(' ', j)) > 0){
-                          coderec = rec.substring(j, rec.indexOf(' ', j));
-                          for (var code1 = 0; codes.length > code1; code1++){
-                            for (var code2 = 0; codes.length > code2; code2++){
-                              codesrec = codes[code1] + "+" + codes[code2];
-                              if (identical(codesrec, coderec)){
-                                finerecomedation = _recomendations[i]["recomendation"];
-                              }
-                            }
+                      for (var code1 = 1; 20 > code1; code1++){
+                        for (var code2 = 1; 20 > code2; code2++){
+                          codesrec = codes[code1] + "+" + codes[code2];
+                          if (rec.contains(codesrec)){
+                            finerecomedation = _recomendations[i]["recomendation"];
                           }
-                        }
-                        else {
-
                         }
                       }
                     }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FirstPage(activebut: true,fineinstruction: finerecomedation)),
+                    );
                     count = 0;
                   },
                   style: ButtonStyle(
@@ -249,7 +256,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false)),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "54")),
                       );
                     },
                     child: const Icon(
@@ -380,7 +387,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false)),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "5123")),
                       );
                     },
                     child: const Icon(
@@ -528,7 +535,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false)),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "412")),
                       );
                     },
                     child: const Icon(
@@ -693,7 +700,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false)),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "414")),
                       );
                     },
                     child: const Icon(
@@ -875,7 +882,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false)),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "31222")),
                       );
                     },
                     child: const Icon(
@@ -1074,7 +1081,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false)),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "433434")),
                       );
                     },
                     child: const Icon(
