@@ -53,12 +53,12 @@ class _ReadJsonState extends State<ReadJson> {
   bool checkedValue5 = false;
   bool checkedValue6 = false;
   bool checkedValue7 = false;
-  List<String> codes = List<String>.generate(100, (index) => '');
+  List<String> codes = List<String>.generate(50, (index) => '');
   String tempcode = '';
   String rec = '';
   String coderec = '';
   String codesrec = '';
-  String finerecomedation = '';
+  var finerecomedation = '';
 
   @override
   Widget build(BuildContext context) {
@@ -185,13 +185,14 @@ class _ReadJsonState extends State<ReadJson> {
                     }
                     checkedValue1 = false;
                     checkedValue2 = false;
+                    print(codes);
                     for (var i = 0; i < _recomendations.length; i++) {
                       rec = _recomendations[i]["codes"];
-                      for (var code1 = 0; 30 > code1; code1++){
-                        for (var code2 = 0; 30 > code2; code2++){
+                      for (var code1 = 0; _items.length > code1; code1++){
+                        for (var code2 = 0; _items.length > code2; code2++){
                           codesrec = codes[code1] + "+" + codes[code2];
                           if (rec.contains(codesrec)){
-                            finerecomedation = _recomendations[i]["recomendation"];
+                            finerecomedation = _recomendations[i]["recommendation"];
                             print(finerecomedation);
                           }
                         }
@@ -199,7 +200,7 @@ class _ReadJsonState extends State<ReadJson> {
                     }
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FirstPage(activebut: true,fineinstruction: finerecomedation)),
+                      MaterialPageRoute(builder: (context) => FirstPage(activebut: true, fineinstruction: finerecomedation)),
                     );
                     count = 0;
                   },
@@ -700,7 +701,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "31222")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "5123")),
                       );
                     },
                     child: const Icon(
