@@ -30,15 +30,20 @@ class ReadJson extends StatefulWidget {
 class _ReadJsonState extends State<ReadJson> {
   PageController _pageController = PageController();
   List _items = [];
+  List _recomendations = [];
  
   Future<void> readJson() async {
+    final String response1 = await rootBundle.loadString('assets/recomendations.json');
     final String response = await rootBundle.loadString('assets/bd.json');
+    final data1 = await json.decode(response1);
     final data = await json.decode(response);
     setState(() {
       _items = data["encoding_attribute"];
+      _recomendations = data1["recommendations_from_psychology"];
     });
   }
- 
+
+  int count = 0;
   int pageChanged = 0;
   bool checkedValue1 = false;
   bool checkedValue2 = false;
@@ -47,6 +52,13 @@ class _ReadJsonState extends State<ReadJson> {
   bool checkedValue5 = false;
   bool checkedValue6 = false;
   bool checkedValue7 = false;
+  List<String> codes = List<String>.generate(100, (index) => '');
+  //List<String> codes = [];
+  String tempcode = '';
+  String rec = '';
+  String coderec = '';
+  String codesrec = '';
+  String finerecomedation = '';
 
   @override
   Widget build(BuildContext context) {
@@ -163,6 +175,26 @@ class _ReadJsonState extends State<ReadJson> {
                       context,
                       MaterialPageRoute(builder: (context) => const FirstPage(activebut: true)),
                     );
+                    for (var i = 0; i < _recomendations.length; i++){
+                      rec = _recomendations[i]["codes"];
+                      for (var j = 0; rec.indexOf(' ', j) > 0; j = j + count){
+                        if ((rec.indexOf(' ', j)) > 0){
+                          coderec = rec.substring(j, rec.indexOf(' ', j));
+                          for (var code1 = 0; codes.length > code1; code1++){
+                            for (var code2 = 0; codes.length > code2; code2++){
+                              codesrec = codes[code1] + "+" + codes[code2];
+                              if (identical(codesrec, coderec)){
+                                finerecomedation = _recomendations[i]["recomendation"];
+                              }
+                            }
+                          }
+                        }
+                        else {
+
+                        }
+                      }
+                    }
+                    count = 0;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),
@@ -280,6 +312,20 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                    if (checkedValue1){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n1";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue2){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n2";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    checkedValue1 = false;
+                    checkedValue2 = false;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),
@@ -407,6 +453,27 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                    if (checkedValue1){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n1";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue2){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n2";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue3){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n3";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    checkedValue1 = false;
+                    checkedValue2 = false;
+                    checkedValue3 = false;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),
@@ -544,6 +611,34 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                     if (checkedValue1){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n1";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue2){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n2";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue3){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n3";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue4){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n4";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    checkedValue1 = false;
+                    checkedValue2 = false;
+                    checkedValue3 = false;
+                    checkedValue4 = false;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),
@@ -691,6 +786,41 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                    if (checkedValue1){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n1";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue2){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n2";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue3){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n3";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue4){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n4";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue5){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n5";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    checkedValue1 = false;
+                    checkedValue2 = false;
+                    checkedValue3 = false;
+                    checkedValue4 = false;
+                    checkedValue5 = false;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),
@@ -848,6 +978,48 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                    if (checkedValue1){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n1";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue2){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n2";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue3){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n3";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue4){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n4";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue5){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n5";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue6){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n6";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    checkedValue1 = false;
+                    checkedValue2 = false;
+                    checkedValue3 = false;
+                    checkedValue4 = false;
+                    checkedValue5 = false;
+                    checkedValue6 = false;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),
@@ -1015,6 +1187,55 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                    if (checkedValue1){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n1";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue2){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n2";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue3){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n3";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue4){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n4";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue5){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n5";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue6){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n6";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    if (checkedValue7){
+                      tempcode = (position+1).toString();
+                      tempcode = tempcode + "n7";
+                      codes[position] = tempcode;
+                      tempcode = '';
+                    }
+                    checkedValue1 = false;
+                    checkedValue2 = false;
+                    checkedValue3 = false;
+                    checkedValue4 = false;
+                    checkedValue5 = false;
+                    checkedValue6 = false;
+                    checkedValue7 = false;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/testpage.dart';
-
+import 'package:http/http.dart' as http;
 import 'instructionpage.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class FirstPage extends StatefulWidget {
   final bool activebut;
@@ -12,6 +15,12 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  @override
+  void initState() {
+    super.initState();
+    //_getData();
+  }
+
   final bool activebut;
 
   _FirstPageState({required this.activebut});
@@ -265,4 +274,22 @@ class _FirstPageState extends State<FirstPage> {
     );
     }
   }
+
+  /*
+  _getData () {
+    Directory directory = getApplicationDocumentsDirectory();
+    final url = Uri.parse('http://a0822582.xsph.ru/api/packet/current/packet');
+    final File file = File("/assets/example.json");
+
+    String _body = '';
+
+    http.get(url).then((response){
+      //file.writeAsStringSync(response.body);
+      _body = response.body;
+      file.writeAsStringSync('dsfghg');
+    }).catchError((error){
+      print("Error: $error");
+    });
+  }
+  */ 
 }

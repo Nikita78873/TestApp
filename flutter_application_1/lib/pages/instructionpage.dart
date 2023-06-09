@@ -27,6 +27,11 @@ class ReadJson extends StatefulWidget {
  
 
 class _ReadJSonState extends State<ReadJson> {
+  void initState() {
+    super.initState();
+    
+  }
+
   List _items = [];
 
   Future<void> readJson() async {
@@ -91,8 +96,6 @@ class _ReadJSonState extends State<ReadJson> {
                       children: [
                         ListTile(
                           leading: Text(_items[index]["sign"]),
-                          title: Text(_items[index]["number"]),
-                          subtitle: Text(_items[index]["n1"]),
                         ),
                         Divider(),
                       ]
