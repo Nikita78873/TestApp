@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'dart:convert';
-
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/instpage1.dart';
-import 'package:flutter_application_1/pages/testpage.dart';
 
 
 class ReadJsons extends StatefulWidget {
@@ -19,24 +13,16 @@ class ReadJsons extends StatefulWidget {
  
 
 class _ReadJSonsState extends State<ReadJsons> {
-  List _items = [];
   final String fineinstruction;
   _ReadJSonsState({required this.fineinstruction});
 
-  Future<void> readJson() async {
-    final String response = await rootBundle.loadString('assets/bd.json');
-    final data = await json.decode(response);
-    setState(() {
-      _items = data["encoding_attribute"];
-    });
-  }
+
 
   final ScrollController controller = ScrollController();
   final ScrollController controller2 = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    readJson();
     return Scaffold(
     body: Container(
       child: Column(children: <Widget>[
