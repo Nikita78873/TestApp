@@ -41,7 +41,7 @@ class _ReadJSonsState extends State<ReadJsons> {
     body: Container(
       child: Column(children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 30),
+          margin: EdgeInsets.only(top: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -78,7 +78,7 @@ class _ReadJSonsState extends State<ReadJsons> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: 5),
           child: SizedBox(
             height: 250,
             width: 400,
