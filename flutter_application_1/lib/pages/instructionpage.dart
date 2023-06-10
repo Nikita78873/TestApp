@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/pages/instpage1.dart';
+import 'package:flutter_application_1/pages/testpage.dart';
 
 
 class ReadJsons extends StatefulWidget {
@@ -28,6 +30,9 @@ class _ReadJSonsState extends State<ReadJsons> {
       _items = data["encoding_attribute"];
     });
   }
+
+  final ScrollController controller = ScrollController();
+  final ScrollController controller2 = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -73,48 +78,100 @@ class _ReadJSonsState extends State<ReadJsons> {
           ),
         ),
         Container(
-        margin: EdgeInsets.only(top: 10, bottom: 10),
+          margin: EdgeInsets.only(top: 10),
           child: SizedBox(
             height: 250,
+            width: 400,
+            child: Scrollbar(
+              thickness: 20.0,
+              thumbVisibility: true,
+              controller: controller,
               child: ListView.builder(
+                controller: controller,
                 itemCount: 1,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
+                    color: Color.fromRGBO(240, 240, 240, 3),
                     child: Column(
                       children: [
                         ListTile(
                           title: Text(fineinstruction),
                         ),
-                        Divider(),
                       ]
                     )
                   );
                 }
-              ),
+              )
             )
+          )
         ),
         Container(
-        margin: EdgeInsets.only(top: 10, bottom: 10),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Instpageone(fineinstruction: fineinstruction)),
+              );
+            },
+            style: ButtonStyle(
+              minimumSize: MaterialStateProperty.all(const Size(400, 30)),
+              backgroundColor: MaterialStateProperty.all<Color>(const Color.fromRGBO(230, 230, 230, 3)),
+            ),
+            child: const Text(
+              "нажмите, чтобы развернуть",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 10),
           child: SizedBox(
             height: 250,
+            width: 400,
+            child: Scrollbar(
+              thickness: 20.0,
+              thumbVisibility: true,
+              controller: controller2,
               child: ListView.builder(
-                itemCount: _items.length,
+                controller: controller2,
+                itemCount: 1,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
+                    color: Color.fromRGBO(240, 240, 240, 3),
                     child: Column(
                       children: [
                         ListTile(
-                          leading: Text(_items[index]["sign"]),
-                          title: Text(_items[index]["number"]),
-                          subtitle: Text(_items[index]["n1"]),
+                          title: Text(fineinstruction),
                         ),
-                        Divider(),
                       ]
                     )
                   );
                 }
-              ),
+              )
             )
+          )
+        ),
+        Container(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Instpageone(fineinstruction: fineinstruction)),
+              );
+            },
+            style: ButtonStyle(
+              minimumSize: MaterialStateProperty.all(const Size(400, 30)),
+              backgroundColor: MaterialStateProperty.all<Color>(const Color.fromRGBO(230, 230, 230, 3)),
+            ),
+            child: const Text(
+              "нажмите, чтобы развернуть",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
         ),
       ]),
     )
