@@ -30,20 +30,23 @@ class ReadJson extends StatefulWidget {
 class _ReadJsonState extends State<ReadJson> {
   PageController _pageController = PageController();
   List _items = [];
-  List _recomendations = [];
+  List _recommendations = [];
+  List _ordrecommendations = [];
  
   Future<void> readJson() async {
-    final String response1 = await rootBundle.loadString('assets/recomendations.json');
+    final String response2 = await rootBundle.loadString('assets/order_recommendations.json');
+    final String response1 = await rootBundle.loadString('assets/psycho_recommendations.json');
     final String response = await rootBundle.loadString('assets/bd.json');
+    final data2 = await json.decode(response2);
     final data1 = await json.decode(response1);
     final data = await json.decode(response);
     setState(() {
       _items = data["encoding_attribute"];
-      _recomendations = data1["recommendations_from_psychology"];
+      _recommendations = data1["recommendations_from_psychology"];
+      _ordrecommendations = data2["recommendations_from_orders"];
     });
   }
 
-  int count = 0;
   int pageChanged = 0;
   bool checkedValue1 = false;
   bool checkedValue2 = false;
@@ -57,7 +60,8 @@ class _ReadJsonState extends State<ReadJson> {
   String rec = '';
   String coderec = '';
   String codesrec = '';
-  var finerecomedation = '';
+  var finerecommendation = '';
+  var fineordrecommendation = '';
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +112,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "123")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "123",fineordinstruction: "54")),
                       );
                     },
                     child: const Icon(
@@ -183,25 +187,38 @@ class _ReadJsonState extends State<ReadJson> {
                     checkedValue1 = false;
                     checkedValue2 = false;
                     print(codes);
-                    for (var i = 0; i < _recomendations.length; i++) {
-                      rec = _recomendations[i]["codes"];
+                    for (var i = 0; i < _recommendations.length; i++) {
+                      rec = _recommendations[i]["codes"];
                       innerloop:
                       for (var code1 = 0; _items.length > code1; code1++){
                         for (var code2 = 0; _items.length > code2; code2++){
                           codesrec = codes[code1] + "+" + codes[code2];
                           if (rec.contains(codesrec)){
-                            finerecomedation = finerecomedation + _recomendations[i]["recommendation"];
-                            print(finerecomedation);
+                            finerecommendation = finerecommendation + _recommendations[i]["recommendation"];
+                            print(finerecommendation);
                             break innerloop;
+                          }
+                        }
+                      }
+                    }
+                    for (var i = 0; i < _ordrecommendations.length; i++) {
+                      rec = _ordrecommendations[i]["codes"];
+                      innerloop2:
+                      for (var code1 = 0; _items.length > code1; code1++){
+                        for (var code2 = 0; _items.length > code2; code2++){
+                          codesrec = codes[code1] + "+" + codes[code2];
+                          if (rec.contains(codesrec)){
+                            fineordrecommendation = fineordrecommendation + _ordrecommendations[i]["recommendation"];
+                            print(fineordrecommendation);
+                            break innerloop2;
                           }
                         }
                       }
                     }
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FirstPage(activebut: true, fineinstruction: finerecomedation)),
+                      MaterialPageRoute(builder: (context) => FirstPage(activebut: true, fineinstruction: finerecommendation, fineordinstruction: fineordrecommendation)),
                     );
-                    count = 0;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),
@@ -256,7 +273,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "54")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "54",fineordinstruction: "54")),
                       );
                     },
                     child: const Icon(
@@ -385,7 +402,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "5123")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "5123",fineordinstruction: "54")),
                       );
                     },
                     child: const Icon(
@@ -530,7 +547,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "31222")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "31222",fineordinstruction: "54")),
                       );
                     },
                     child: const Icon(
@@ -691,7 +708,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "5123")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "5123",fineordinstruction: "54")),
                       );
                     },
                     child: const Icon(
@@ -868,7 +885,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "31222")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "31222",fineordinstruction: "54")),
                       );
                     },
                     child: const Icon(
@@ -1061,7 +1078,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "433434")),
+                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "433434",fineordinstruction: "54")),
                       );
                     },
                     child: const Icon(

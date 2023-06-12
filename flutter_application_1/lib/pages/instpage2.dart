@@ -5,16 +5,18 @@ import 'instructionpage.dart';
 
 class Instpagetwo extends StatefulWidget {
   final String fineinstruction;
-  const Instpagetwo({super.key, required this.fineinstruction});
+  final String fineordinstruction;
+  const Instpagetwo({super.key, required this.fineinstruction, required this.fineordinstruction});
  
   @override
-  State<Instpagetwo> createState() => _InstPagetwoState(fineinstruction: fineinstruction);
+  State<Instpagetwo> createState() => _InstPagetwoState(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction);
 }
  
 
 class _InstPagetwoState extends State<Instpagetwo> {
+  final String fineordinstruction;
   final String fineinstruction;
-  _InstPagetwoState({required this.fineinstruction});
+  _InstPagetwoState({required this.fineinstruction, required this.fineordinstruction});
 
   @override
   Widget build(BuildContext context) {
@@ -27,23 +29,25 @@ class _InstPagetwoState extends State<Instpagetwo> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [ 
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction)),
+                        MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
                       );
                     },
-                    child: const Icon(
-                      Icons.settings_rounded,
-                      size: 24,
-                      color: Colors.black,
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                     ),
+                    child: const Icon(
+                      color: Colors.black,
+                      Icons.close
+                    )
                   )
                 ]
               ),
               Text(
-                fineinstruction
+                fineordinstruction
               )
             ]
           )

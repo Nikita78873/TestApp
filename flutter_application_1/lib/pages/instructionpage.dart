@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/pages/instpage1.dart';
+import 'package:flutter_application_1/pages/instpage2.dart';
 
 
 class ReadJsons extends StatefulWidget {
   final String fineinstruction;
-  const ReadJsons({super.key, required this.fineinstruction});
+  final String fineordinstruction;
+  const ReadJsons({super.key, required this.fineinstruction, required this.fineordinstruction});
  
   @override
-  State<ReadJsons> createState() => _ReadJSonsState(fineinstruction: fineinstruction);
+  State<ReadJsons> createState() => _ReadJSonsState(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction);
 }
  
 
 class _ReadJSonsState extends State<ReadJsons> {
   final String fineinstruction;
-  _ReadJSonsState({required this.fineinstruction});
+  final String fineordinstruction;
+  _ReadJSonsState({required this.fineinstruction, required this.fineordinstruction});
 
 
 
@@ -55,7 +58,7 @@ class _ReadJSonsState extends State<ReadJsons> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction)),
+                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
                     );
                   }
                 )
@@ -96,7 +99,7 @@ class _ReadJSonsState extends State<ReadJsons> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Instpageone(fineinstruction: fineinstruction)),
+                MaterialPageRoute(builder: (context) => Instpageone(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
               );
             },
             style: ButtonStyle(
@@ -129,7 +132,7 @@ class _ReadJSonsState extends State<ReadJsons> {
                     child: Column(
                       children: [
                         ListTile(
-                          title: Text(fineinstruction),
+                          title: Text(fineordinstruction),
                         ),
                       ]
                     )
@@ -144,7 +147,7 @@ class _ReadJSonsState extends State<ReadJsons> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Instpageone(fineinstruction: fineinstruction)),
+                MaterialPageRoute(builder: (context) => Instpagetwo(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
               );
             },
             style: ButtonStyle(

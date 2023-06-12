@@ -9,10 +9,11 @@ import 'dart:io';
 class FirstPage extends StatefulWidget {
   final bool activebut;
   final String fineinstruction;
-  const FirstPage({super.key, required this.activebut, required this.fineinstruction});
+  final String fineordinstruction;
+  const FirstPage({super.key, required this.activebut, required this.fineinstruction, required this.fineordinstruction});
 
   @override
-  State<FirstPage> createState() => _FirstPageState(activebut: activebut, fineinstruction: fineinstruction);
+  State<FirstPage> createState() => _FirstPageState(activebut: activebut, fineinstruction: fineinstruction, fineordinstruction: fineordinstruction);
 }
 
 class _FirstPageState extends State<FirstPage> {
@@ -24,8 +25,9 @@ class _FirstPageState extends State<FirstPage> {
 
   final bool activebut;
   final String fineinstruction;
+  final String fineordinstruction;
 
-  _FirstPageState({required this.activebut, required this.fineinstruction});
+  _FirstPageState({required this.activebut, required this.fineinstruction, required this.fineordinstruction});
   
   showAlertDialog(BuildContext context) {
 
@@ -89,7 +91,7 @@ class _FirstPageState extends State<FirstPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction)),
+                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
                     );
                   }
                 )
@@ -114,7 +116,7 @@ class _FirstPageState extends State<FirstPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction)),
+                MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
               );
             }
           )
@@ -199,7 +201,7 @@ class _FirstPageState extends State<FirstPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: "32")),
+                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: "32",fineordinstruction: "54")),
                     );
                   }
                 )

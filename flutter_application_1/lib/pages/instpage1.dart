@@ -5,16 +5,18 @@ import 'instructionpage.dart';
 
 class Instpageone extends StatefulWidget {
   final String fineinstruction;
-  const Instpageone({super.key, required this.fineinstruction});
+  final String fineordinstruction;
+  const Instpageone({super.key, required this.fineinstruction, required this.fineordinstruction});
  
   @override
-  State<Instpageone> createState() => _InstPageoneState(fineinstruction: fineinstruction);
+  State<Instpageone> createState() => _InstPageoneState(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction);
 }
  
 
 class _InstPageoneState extends State<Instpageone> {
   final String fineinstruction;
-  _InstPageoneState({required this.fineinstruction});
+  final String fineordinstruction;
+  _InstPageoneState({required this.fineinstruction, required this.fineordinstruction});
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +29,19 @@ class _InstPageoneState extends State<Instpageone> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [ 
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction)),
+                        MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
                       );
                     },
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(const Size(50, 50)),
+                    ),
                     child: const Icon(
-                      Icons.settings_rounded,
-                      size: 24,
                       color: Colors.black,
+                      Icons.close
                     ),
                   )
                 ]
