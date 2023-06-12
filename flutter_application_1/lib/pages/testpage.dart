@@ -171,14 +171,12 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (checkedValue1){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n1";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n1";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue2){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n2";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n2";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
@@ -187,12 +185,14 @@ class _ReadJsonState extends State<ReadJson> {
                     print(codes);
                     for (var i = 0; i < _recomendations.length; i++) {
                       rec = _recomendations[i]["codes"];
+                      innerloop:
                       for (var code1 = 0; _items.length > code1; code1++){
                         for (var code2 = 0; _items.length > code2; code2++){
                           codesrec = codes[code1] + "+" + codes[code2];
                           if (rec.contains(codesrec)){
-                            finerecomedation = _recomendations[i]["recommendation"];
+                            finerecomedation = finerecomedation + _recomendations[i]["recommendation"];
                             print(finerecomedation);
+                            break innerloop;
                           }
                         }
                       }
@@ -320,14 +320,12 @@ class _ReadJsonState extends State<ReadJson> {
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
                     if (checkedValue1){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n1";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n1";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue2){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n2";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n2";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
@@ -461,20 +459,17 @@ class _ReadJsonState extends State<ReadJson> {
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
                     if (checkedValue1){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n1";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n1";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue2){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n2";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n2";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue3){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n3";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n3";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
@@ -619,26 +614,22 @@ class _ReadJsonState extends State<ReadJson> {
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
                     if (checkedValue1){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n1";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n1";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue2){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n2";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n2";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue3){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n3";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n3";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue4){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n4";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n4";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
@@ -794,32 +785,27 @@ class _ReadJsonState extends State<ReadJson> {
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
                     if (checkedValue1){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n1";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n1";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue2){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n2";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n2";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue3){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n3";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n3";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue4){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n4";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n4";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue5){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n5";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n5";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
@@ -986,38 +972,32 @@ class _ReadJsonState extends State<ReadJson> {
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
                     if (checkedValue1){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n1";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n1";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue2){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n2";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n2";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue3){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n3";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n3";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue4){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n4";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n4";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue5){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n5";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n5";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue6){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n6";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n6";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
@@ -1195,44 +1175,37 @@ class _ReadJsonState extends State<ReadJson> {
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
                     if (checkedValue1){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n1";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n1";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue2){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n2";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n2";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue3){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n3";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n3";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue4){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n4";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n4";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue5){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n5";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n5";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue6){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n6";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n6";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
                     if (checkedValue7){
-                      tempcode = (position+1).toString();
-                      tempcode = tempcode + "n7";
+                      tempcode = "s" + (position+1).toString() + "g" + _items[position]["group"] + "v" + _items[position]["vid"] + "n7";
                       codes[position] = tempcode;
                       tempcode = '';
                     }
