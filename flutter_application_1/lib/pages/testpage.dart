@@ -58,7 +58,6 @@ class _ReadJsonState extends State<ReadJson> {
   List<String> codes = List<String>.generate(50, (index) => '');
   String tempcode = '';
   String rec = '';
-  String coderec = '';
   String codesrec = '';
   var finerecommendation = '';
   var fineordrecommendation = '';
