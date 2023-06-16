@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/firstpage.dart';
 
 import 'package:flutter_application_1/pages/instpage1.dart';
 import 'package:flutter_application_1/pages/instpage2.dart';
@@ -51,14 +52,13 @@ class _ReadJSonsState extends State<ReadJsons> {
                     minimumSize: const Size(20, 40),
                   ),
                   child: const Icon(
-                    Icons.settings_rounded,
-                    size: 24,
+                    Icons.close,
                     color: Colors.black,
                   ),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
+                      MaterialPageRoute(builder: (context) => FirstPage(activebut: false, fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
                     );
                   }
                 )

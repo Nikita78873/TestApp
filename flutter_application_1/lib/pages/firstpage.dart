@@ -34,9 +34,7 @@ class _FirstPageState extends State<FirstPage> {
   // set up the button
   Widget okButton = TextButton(
     child: Text("OK"),
-    onPressed: () {
-      Navigator.of(context).pop();
-    },
+    onPressed: () => Navigator.pop(context, 'OK'),
   );
 
   // set up the AlertDialog
@@ -62,12 +60,12 @@ class _FirstPageState extends State<FirstPage> {
     if (activebut){
     return Scaffold(
       body: Column(children: <Widget>[
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+        const Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Expanded(
+              Expanded(
                 flex: 9,
                 child: Text(
                   'Главная',
@@ -75,25 +73,6 @@ class _FirstPageState extends State<FirstPage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                   ),
-                )
-              ),
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    minimumSize: const Size(20, 40),
-                  ),
-                  child: const Icon(
-                    Icons.settings_rounded,
-                    size: 24,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
-                    );
-                  }
                 )
               )
             ]
@@ -224,7 +203,6 @@ class _FirstPageState extends State<FirstPage> {
               ),
             ),
             onPressed: () {
-              Null;
               showAlertDialog(context);
             }
           )
