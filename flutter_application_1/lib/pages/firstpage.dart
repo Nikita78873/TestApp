@@ -20,7 +20,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   void initState() {
     super.initState();
-    //_getData();
+    _getData();
   }
 
   final bool activebut;
@@ -257,10 +257,9 @@ class _FirstPageState extends State<FirstPage> {
     }
   }
 
-  /*
+  
   _getData () {
-    Directory directory = getApplicationDocumentsDirectory();
-    final url = Uri.parse('http://a0822582.xsph.ru/api/packet/current/packet');
+    final url = Uri.parse('https://habr.com/ru/all/');
     final File file = File("/assets/example.json");
 
     String _body = '';
@@ -273,5 +272,5 @@ class _FirstPageState extends State<FirstPage> {
       print("Error: $error");
     });
   }
-  */ 
+   
 }
