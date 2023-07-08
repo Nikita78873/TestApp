@@ -259,7 +259,7 @@ class _FirstPageState extends State<FirstPage> {
 
   
   _getData () {
-    final url = Uri.parse('https://habr.com/ru/all/');
+    final url = Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket');
     final File file = File("/assets/example.json");
 
     String _body = '';
