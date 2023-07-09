@@ -257,19 +257,18 @@ class _FirstPageState extends State<FirstPage> {
     }
   }
 
-  
-  _getData () {
-    final url = Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket');
-    final File file = File("/assets/example.json");
+  Future<void> _getData () async {
+    final localDirectory = await getTemporaryDirectory();
+    const localFileName = 'assets/example.json';
+    var locdir = localDirectory!.path; 
+    final file = File('$locdir/$localFileName');
 
-    String _body = '';
-
-    http.get(url).then((response){
-      //file.writeAsStringSync(response.body);
-      _body = response.body;
-      file.writeAsStringSync('dsfghg');
+    http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response){
+      file.writeAsString(response.body);
+      print(response.body);
+      print(file);
     }).catchError((error){
-      print("Error: $error");
+      print("Error");
     });
   }
    

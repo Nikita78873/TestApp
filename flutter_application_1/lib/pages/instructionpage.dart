@@ -183,6 +183,7 @@ class _ReadJSonsState extends State<ReadJsons> {
     http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response) {
       print("Response status: ${response.statusCode}");
       print("Response body: ${response.body}");
+      _body = response.body;
     }).catchError((error){
       print("Error: $error");
     });
