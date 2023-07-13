@@ -32,7 +32,7 @@ class _ReadJsonState extends State<ReadJson> {
   List _items = [];
   List _recommendations = [];
   List _ordrecommendations = [];
- 
+
   Future<void> readJson() async {
     final String response2 = await rootBundle.loadString('assets/order_recommendations.json');
     final String response1 = await rootBundle.loadString('assets/psycho_recommendations.json');
@@ -65,6 +65,15 @@ class _ReadJsonState extends State<ReadJson> {
   @override
   Widget build(BuildContext context) {
     readJson();
+    String itemm = json.encode(_items);
+    List<Map<dynamic, dynamic>> listOfItems = [];
+
+    for (dynamic item in _items) {
+      if (item is Map) {
+        listOfItems.add(item);
+      }
+    }
+
     return PageView.builder(
       physics: const NeverScrollableScrollPhysics(),
       controller: _pageController,

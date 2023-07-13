@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/testpage.dart';
@@ -23,6 +25,7 @@ class _FirstPageState extends State<FirstPage> {
     _getData();
   }
 
+  List _items = [];
   final bool activebut;
   final String fineinstruction;
   final String fineordinstruction;
@@ -258,18 +261,26 @@ class _FirstPageState extends State<FirstPage> {
   }
 
   Future<void> _getData () async {
-    final localDirectory = await getTemporaryDirectory();
-    const localFileName = 'assets/example.json';
+    final localDirectory = await getExternalStorageDirectory();
+    const localFileName = 'example.json';
     var locdir = localDirectory!.path; 
     final file = File('$locdir/$localFileName');
+    final stroka = await file.readAsString();
+    final data = await json.decode(stroka);
 
     http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response){
+      file.create();
       file.writeAsString(response.body);
       print(response.body);
       print(file);
     }).catchError((error){
       print("Error");
     });
+
+    setState(() {
+      _items = data["data"]["primaryQuestions"];
+    });
+
+    print(_items);
   }
-   
 }

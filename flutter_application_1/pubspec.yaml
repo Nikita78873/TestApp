@@ -94,5 +94,4 @@ flutter:
     - assets/bd.json
     - assets/psycho_recommendations.json
     - assets/questions.json
-    - assets/example.json
     - assets/order_recommendations.json
