@@ -17,10 +17,6 @@ class ReadJsons extends StatefulWidget {
 
 class _ReadJSonsState extends State<ReadJsons> {
   @override
-  void initState() {
-    super.initState();
-    httpGet();
-  }
   final String fineinstruction;
   final String fineordinstruction;
   String _body = "1";
@@ -168,24 +164,10 @@ class _ReadJSonsState extends State<ReadJsons> {
             ),
           ),
         ),
-        Container(
-          child: ElevatedButton(
-            onPressed: () {  },
-            child: Text(_body),
-          ),
-        )
       ]),
     )
     );
   }
   
-  httpGet()  {
-    http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response) {
-      print("Response status: ${response.statusCode}");
-      print("Response body: ${response.body}");
-      _body = response.body;
-    }).catchError((error){
-      print("Error: $error");
-    });
-  }
+
 }
