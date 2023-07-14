@@ -262,11 +262,9 @@ class _FirstPageState extends State<FirstPage> {
 
   Future<void> _getData () async {
     final localDirectory = await getExternalStorageDirectory();
-    const localFileName = 'example.json';
+    const localFileName = 'bd.json';
     var locdir = localDirectory!.path; 
     final file = File('$locdir/$localFileName');
-    final stroka = await file.readAsString();
-    final data = await json.decode(stroka);
 
     http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response){
       file.create();
@@ -276,11 +274,5 @@ class _FirstPageState extends State<FirstPage> {
     }).catchError((error){
       print("Error");
     });
-
-    setState(() {
-      _items = data["data"]["primaryQuestions"];
-    });
-
-    print(_items);
   }
 }

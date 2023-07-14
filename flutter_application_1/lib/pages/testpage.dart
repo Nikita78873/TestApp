@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -5,6 +7,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'firstpage.dart';
 
@@ -30,21 +33,22 @@ class ReadJson extends StatefulWidget {
 class _ReadJsonState extends State<ReadJson> {
   PageController _pageController = PageController();
   List _items = [];
-  List _recommendations = [];
-  List _ordrecommendations = [];
+  List _recom = [];
+  List _ordrecom = [];
   List<bool> answers = List<bool>.generate(15, (index) => false);
 
   Future<void> readJson() async {
-    final String response2 = await rootBundle.loadString('assets/order_recommendations.json');
-    final String response1 = await rootBundle.loadString('assets/psycho_recommendations.json');
-    final String response = await rootBundle.loadString('assets/bd.json');
-    final data2 = await json.decode(response2);
-    final data1 = await json.decode(response1);
-    final data = await json.decode(response);
+    final localDirectory = await getExternalStorageDirectory();
+    const localFileName = 'bd.json';
+    var locdir = localDirectory!.path; 
+    final file = File('$locdir/$localFileName');
+    final stroka = await file.readAsString();
+    final data = await json.decode(stroka);
+
     setState(() {
-      _items = data["encoding_attribute"];
-      _recommendations = data1["recommendations_from_psychology"];
-      _ordrecommendations = data2["recommendations_from_orders"];
+      _items = data["data"]["primaryQuestions"];
+      _recom = data["data"]["answers"]["recommendations_from_psychology"];
+      _ordrecom = data["data"]["answers"]["recommendations_from_orders"];
     });
   }
 
@@ -60,10 +64,24 @@ class _ReadJsonState extends State<ReadJson> {
   Widget build(BuildContext context) {
     readJson();
     List<Map<dynamic, dynamic>> listOfItems = [];
+    List<Map<dynamic, dynamic>> _recommendations = [];
+    List<Map<dynamic, dynamic>> _ordrecommendations = [];
 
     for (dynamic item in _items) {
       if (item is Map) {
         listOfItems.add(item);
+      }
+    }
+    
+    for (dynamic item in _recom) {
+      if (item is Map) {
+        _recommendations.add(item);
+      }
+    }
+
+    for (dynamic item in _ordrecom) {
+      if (item is Map) {
+        _ordrecommendations.add(item);
       }
     }
 
@@ -176,29 +194,34 @@ class _ReadJsonState extends State<ReadJson> {
                     }
                     print(codes);
                     for (var i = 0; i < _recommendations.length; i++) {
-                      rec = _recommendations[i]["codes"];
                       innerloop:
-                      for (var code1 = 0; listOfItems.length > code1; code1++){
-                        for (var code2 = 0; listOfItems.length > code2; code2++){
-                          codesrec = codes[code1] + "+" + codes[code2];
-                          if (rec.contains(codesrec)){
-                            finerecommendation = finerecommendation + _recommendations[i]["recommendation"];
-                            print(finerecommendation);
-                            break innerloop;
+                      for (var j = 0; j < _recommendations[i]["code"].length; j++){
+                        rec = json.encode(_recommendations[i]["code"][j]);
+                        for (var code1 = 0; listOfItems.length > code1; code1++){
+                          for (var code2 = 0; listOfItems.length > code2; code2++){
+                            codesrec = codes[code1] + "+" + codes[code2];
+                            //print("/" + bigzap(rec) + "=" + codesrec + "/");
+                            if (bigzap(rec) == codesrec){
+                              finerecommendation = finerecommendation + zap(json.encode(_recommendations[i]["data"]));
+                              print(finerecommendation);
+                              break innerloop;
+                            }
                           }
                         }
                       }
                     }
                     for (var i = 0; i < _ordrecommendations.length; i++) {
-                      rec = _ordrecommendations[i]["codes"];
                       innerloop2:
-                      for (var code1 = 0; listOfItems.length > code1; code1++){
-                        for (var code2 = 0; listOfItems.length > code2; code2++){
-                          codesrec = codes[code1] + "+" + codes[code2];
-                          if (rec.contains(codesrec)){
-                            fineordrecommendation = fineordrecommendation + _ordrecommendations[i]["recommendation"];
-                            print(fineordrecommendation);
-                            break innerloop2;
+                      for (var j = 0; j < _ordrecommendations[i]["code"].length; j++){
+                        rec = json.encode(_ordrecommendations[i]["code"][j]);
+                        for (var code1 = 0; listOfItems.length > code1; code1++){
+                          for (var code2 = 0; listOfItems.length > code2; code2++){
+                            codesrec = codes[code1] + "+" + codes[code2];
+                            if (bigzap(rec) == codesrec){
+                              fineordrecommendation = fineordrecommendation + zap(json.encode(_ordrecommendations[i]["data"]));
+                              print(fineordrecommendation);
+                              break innerloop2;
+                            }
                           }
                         }
                       }
@@ -342,4 +365,18 @@ class _ReadJsonState extends State<ReadJson> {
     }
   );
   }
+}
+
+String zap(String str) {
+  str = str.replaceAll('","', ' ');
+  str = str.replaceAll('"]', ' ');
+  str = str.replaceAll('["', ' ');
+  return str;
+}
+
+String bigzap(String str) {
+  str = str.replaceAll('"', '');
+  str = str.replaceAll(',', '');
+  str = str.replaceAll(' ', '');
+  return str;
 }

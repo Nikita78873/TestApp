@@ -168,6 +168,4 @@ class _ReadJSonsState extends State<ReadJsons> {
     )
     );
   }
-  
-
 }
