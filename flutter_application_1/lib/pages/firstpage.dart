@@ -25,38 +25,11 @@ class _FirstPageState extends State<FirstPage> {
     _getData();
   }
 
-  List _items = [];
   final bool activebut;
   final String fineinstruction;
   final String fineordinstruction;
 
   _FirstPageState({required this.activebut, required this.fineinstruction, required this.fineordinstruction});
-  
-  showAlertDialog(BuildContext context) {
-
-  // set up the button
-  Widget okButton = TextButton(
-    child: Text("OK"),
-    onPressed: () => Navigator.pop(context, 'OK'),
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("Ошибка!"),
-    content: Text("Сначала пройдите тестирование"),
-    actions: [
-      okButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -274,5 +247,29 @@ class _FirstPageState extends State<FirstPage> {
     }).catchError((error){
       print("Error");
     });
+  }
+  
+  showAlertDialog(BuildContext context) {
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () => {
+        Navigator.of(context).pop()
+      }
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Ошибка!"),
+      content: Text("Сначала пройдите тестирование"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

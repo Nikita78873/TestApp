@@ -200,7 +200,11 @@ class _ReadJsonState extends State<ReadJson> {
                         for (var code1 = 0; listOfItems.length > code1; code1++){
                           for (var code2 = 0; listOfItems.length > code2; code2++){
                             codesrec = codes[code1] + "+" + codes[code2];
-                            //print("/" + bigzap(rec) + "=" + codesrec + "/");
+                            if (bigzap(rec) == codes[code2]){
+                              finerecommendation = finerecommendation + zap(json.encode(_recommendations[i]["data"]));
+                              print(finerecommendation);
+                              break innerloop;
+                            }
                             if (bigzap(rec) == codesrec){
                               finerecommendation = finerecommendation + zap(json.encode(_recommendations[i]["data"]));
                               print(finerecommendation);
@@ -217,6 +221,11 @@ class _ReadJsonState extends State<ReadJson> {
                         for (var code1 = 0; listOfItems.length > code1; code1++){
                           for (var code2 = 0; listOfItems.length > code2; code2++){
                             codesrec = codes[code1] + "+" + codes[code2];
+                            if (bigzap(rec) == codes[code2]){
+                              fineordrecommendation = fineordrecommendation + zap(json.encode(_ordrecommendations[i]["data"]));
+                              print(fineordrecommendation);
+                              break innerloop2;
+                            }
                             if (bigzap(rec) == codesrec){
                               fineordrecommendation = fineordrecommendation + zap(json.encode(_ordrecommendations[i]["data"]));
                               print(fineordrecommendation);
