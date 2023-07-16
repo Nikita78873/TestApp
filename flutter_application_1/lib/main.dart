@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/changepage.dart';
+import 'package:flutter_application_1/pages/changetestpage.dart';
 import 'package:flutter_application_1/pages/firstpage.dart';
 import 'package:flutter_application_1/pages/instpage1.dart';
 import 'package:flutter_application_1/pages/instpage2.dart';
@@ -15,7 +17,8 @@ void main() => runApp(MaterialApp(
     '/secondary':(context) => TestPage(),
     '/instructionsopened':(context) => Instpageone(fineinstruction: '', fineordinstruction: ''),
     '/instructionsopened2':(context) => Instpagetwo(fineinstruction: '', fineordinstruction: ''),
-    '/change':(context) => Instpagetwo(fineinstruction: '', fineordinstruction: ''),
+    '/change':(context) => ChangePage(),
+    '/changetest':(context) => ChangeTestPage(codeindex: 0)
   },
 ),
 );

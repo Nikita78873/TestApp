@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/pages/changetestpage.dart';
 import 'package:flutter_application_1/pages/testpage.dart';
 import 'package:http/http.dart' as http;
 import 'firstpage.dart';
@@ -93,6 +94,12 @@ class _ChangePageState extends State<ChangePage> {
                         children: [
                           ListTile(
                             title: Text((index+1).toString() + " " + listOfItems[index]["title"]),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ChangeTestPage(codeindex: index)),
+                              );
+                            }
                           ),
                         Divider()
                         ]
