@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'instructionpage.dart';
 
@@ -6,17 +9,17 @@ import 'instructionpage.dart';
 class Instpagetwo extends StatefulWidget {
   final String fineinstruction;
   final String fineordinstruction;
-  const Instpagetwo({super.key, required this.fineinstruction, required this.fineordinstruction});
+  const Instpagetwo({super.key, required this.fineordinstruction, required this.fineinstruction});
  
   @override
-  State<Instpagetwo> createState() => _InstPagetwoState(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction);
+  State<Instpagetwo> createState() => _InstPagetwoState(fineordinstruction: fineordinstruction, fineinstruction: fineinstruction);
 }
  
 
 class _InstPagetwoState extends State<Instpagetwo> {
-  final String fineordinstruction;
   final String fineinstruction;
-  _InstPagetwoState({required this.fineinstruction, required this.fineordinstruction});
+  final String fineordinstruction;
+  _InstPagetwoState({required this.fineordinstruction, required this.fineinstruction});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class _InstPagetwoState extends State<Instpagetwo> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
+                        MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: fineinstruction,fineordinstruction: fineordinstruction)),
                       );
                     },
                     style: ButtonStyle(

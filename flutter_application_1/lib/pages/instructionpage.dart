@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/firstpage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_1/pages/instpage1.dart';
 import 'package:flutter_application_1/pages/instpage2.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 class ReadJsons extends StatefulWidget {
@@ -16,13 +19,9 @@ class ReadJsons extends StatefulWidget {
  
 
 class _ReadJSonsState extends State<ReadJsons> {
-  @override
   final String fineinstruction;
   final String fineordinstruction;
-  String _body = "1";
   _ReadJSonsState({required this.fineinstruction, required this.fineordinstruction});
-
-
 
   final ScrollController controller = ScrollController();
   final ScrollController controller2 = ScrollController();
@@ -60,7 +59,7 @@ class _ReadJSonsState extends State<ReadJsons> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FirstPage(activebut: false, fineinstruction: fineinstruction, fineordinstruction: fineordinstruction)),
+                      MaterialPageRoute(builder: (context) => FirstPage()),
                     );
                   }
                 )

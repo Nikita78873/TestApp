@@ -131,7 +131,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "123",fineordinstruction: "54")),
+                        MaterialPageRoute(builder: (context) => FirstPage()),
                       );
                     },
                     child: const Icon(
@@ -178,8 +178,7 @@ class _ReadJsonState extends State<ReadJson> {
                 )
               )
             ),
-            Container(
-              margin: EdgeInsets.only(bottom: 5),
+            Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
@@ -235,9 +234,10 @@ class _ReadJsonState extends State<ReadJson> {
                         }
                       }
                     }
+                    prints(finerecommendation, fineordrecommendation);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FirstPage(activebut: true, fineinstruction: finerecommendation, fineordinstruction: fineordrecommendation)),
+                      MaterialPageRoute(builder: (context) => FirstPage()),
                     );
                   },
                   style: ButtonStyle(
@@ -292,7 +292,7 @@ class _ReadJsonState extends State<ReadJson> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FirstPage(activebut: false,fineinstruction: "54",fineordinstruction: "54")),
+                        MaterialPageRoute(builder: (context) => FirstPage()),
                       );
                     },
                     child: const Icon(
@@ -374,6 +374,20 @@ class _ReadJsonState extends State<ReadJson> {
     }
   );
   }
+}
+
+Future<void> prints(String fine, String fineord) async{
+  final localDirectory = await getExternalStorageDirectory();
+  const localFileName = 'rec.txt';
+  const localFileName1 = 'ordrec.txt';
+  var locdir = localDirectory!.path;
+  final file = File('$locdir/$localFileName');
+  final file1 = File('$locdir/$localFileName1');
+
+  file.create();
+  file.writeAsString(fine);
+  file1.create();
+  file1.writeAsString(fineord);
 }
 
 String zap(String str) {

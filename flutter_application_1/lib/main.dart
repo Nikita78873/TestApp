@@ -10,11 +10,11 @@ void main() => runApp(MaterialApp(
 
   initialRoute: '/',
   routes: {
-    '/':(context) => FirstPage(activebut: false, fineinstruction: "322", fineordinstruction: "322"), 
-    '/primary':(context) => ReadJsons(fineinstruction: "", fineordinstruction: "54"),
+    '/':(context) => FirstPage(), 
+    '/primary':(context) => ReadJsons(fineinstruction: '',fineordinstruction: ''),
     '/secondary':(context) => TestPage(),
-    '/instructionsopened':(context) => Instpageone(fineinstruction: "222", fineordinstruction: "54"),
-    '/instructionsopened2':(context) => Instpagetwo(fineinstruction: "322", fineordinstruction: "54"),
+    '/instructionsopened':(context) => Instpageone(fineinstruction: '', fineordinstruction: ''),
+    '/instructionsopened2':(context) => Instpagetwo(fineinstruction: '', fineordinstruction: ''),
   },
 ),
 );
