@@ -15,6 +15,7 @@ void main() => runApp(MaterialApp(
     '/secondary':(context) => TestPage(),
     '/instructionsopened':(context) => Instpageone(fineinstruction: '', fineordinstruction: ''),
     '/instructionsopened2':(context) => Instpagetwo(fineinstruction: '', fineordinstruction: ''),
+    '/change':(context) => Instpagetwo(fineinstruction: '', fineordinstruction: ''),
   },
 ),
 );

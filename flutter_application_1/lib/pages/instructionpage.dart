@@ -12,7 +12,7 @@ class ReadJsons extends StatefulWidget {
   final String fineinstruction;
   final String fineordinstruction;
   const ReadJsons({super.key, required this.fineinstruction, required this.fineordinstruction});
- 
+
   @override
   State<ReadJsons> createState() => _ReadJSonsState(fineinstruction: fineinstruction, fineordinstruction: fineordinstruction);
 }

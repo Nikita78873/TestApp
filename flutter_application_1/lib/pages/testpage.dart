@@ -64,8 +64,8 @@ class _ReadJsonState extends State<ReadJson> {
   Widget build(BuildContext context) {
     readJson();
     List<Map<dynamic, dynamic>> listOfItems = [];
-    List<Map<dynamic, dynamic>> _recommendations = [];
-    List<Map<dynamic, dynamic>> _ordrecommendations = [];
+    List<Map<dynamic, dynamic>> recommendations = [];
+    List<Map<dynamic, dynamic>> ordrecommendations = [];
 
     for (dynamic item in _items) {
       if (item is Map) {
@@ -75,13 +75,13 @@ class _ReadJsonState extends State<ReadJson> {
     
     for (dynamic item in _recom) {
       if (item is Map) {
-        _recommendations.add(item);
+        recommendations.add(item);
       }
     }
 
     for (dynamic item in _ordrecom) {
       if (item is Map) {
-        _ordrecommendations.add(item);
+        ordrecommendations.add(item);
       }
     }
 
@@ -192,20 +192,20 @@ class _ReadJsonState extends State<ReadJson> {
                       }
                     }
                     print(codes);
-                    for (var i = 0; i < _recommendations.length; i++) {
+                    for (var i = 0; i < recommendations.length; i++) {
                       innerloop:
-                      for (var j = 0; j < _recommendations[i]["code"].length; j++){
-                        rec = json.encode(_recommendations[i]["code"][j]);
+                      for (var j = 0; j < recommendations[i]["code"].length; j++){
+                        rec = json.encode(recommendations[i]["code"][j]);
                         for (var code1 = 0; listOfItems.length > code1; code1++){
                           for (var code2 = 0; listOfItems.length > code2; code2++){
                             codesrec = codes[code1] + "+" + codes[code2];
                             if (bigzap(rec) == codes[code2]){
-                              finerecommendation = finerecommendation + zap(json.encode(_recommendations[i]["data"]));
+                              finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
                               print(finerecommendation);
                               break innerloop;
                             }
                             if (bigzap(rec) == codesrec){
-                              finerecommendation = finerecommendation + zap(json.encode(_recommendations[i]["data"]));
+                              finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
                               print(finerecommendation);
                               break innerloop;
                             }
@@ -213,20 +213,20 @@ class _ReadJsonState extends State<ReadJson> {
                         }
                       }
                     }
-                    for (var i = 0; i < _ordrecommendations.length; i++) {
+                    for (var i = 0; i < ordrecommendations.length; i++) {
                       innerloop2:
-                      for (var j = 0; j < _ordrecommendations[i]["code"].length; j++){
-                        rec = json.encode(_ordrecommendations[i]["code"][j]);
+                      for (var j = 0; j < ordrecommendations[i]["code"].length; j++){
+                        rec = json.encode(ordrecommendations[i]["code"][j]);
                         for (var code1 = 0; listOfItems.length > code1; code1++){
                           for (var code2 = 0; listOfItems.length > code2; code2++){
                             codesrec = codes[code1] + "+" + codes[code2];
                             if (bigzap(rec) == codes[code2]){
-                              fineordrecommendation = fineordrecommendation + zap(json.encode(_ordrecommendations[i]["data"]));
+                              fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
                               print(fineordrecommendation);
                               break innerloop2;
                             }
                             if (bigzap(rec) == codesrec){
-                              fineordrecommendation = fineordrecommendation + zap(json.encode(_ordrecommendations[i]["data"]));
+                              fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
                               print(fineordrecommendation);
                               break innerloop2;
                             }
@@ -234,7 +234,7 @@ class _ReadJsonState extends State<ReadJson> {
                         }
                       }
                     }
-                    prints(finerecommendation, fineordrecommendation);
+                    prints(finerecommendation, fineordrecommendation, codes);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => FirstPage()),
@@ -376,18 +376,23 @@ class _ReadJsonState extends State<ReadJson> {
   }
 }
 
-Future<void> prints(String fine, String fineord) async{
+Future<void> prints(String fine, String fineord, List<String> codes) async{
   final localDirectory = await getExternalStorageDirectory();
   const localFileName = 'rec.txt';
   const localFileName1 = 'ordrec.txt';
+  const localFileName2 = 'quest.txt';
   var locdir = localDirectory!.path;
   final file = File('$locdir/$localFileName');
   final file1 = File('$locdir/$localFileName1');
+  final file2 = File('$locdir/$localFileName2');
 
   file.create();
   file.writeAsString(fine);
   file1.create();
   file1.writeAsString(fineord);
+  file2.create();
+  String stringcodes = codes.join(" ");
+  file2.writeAsString(stringcodes);
 }
 
 String zap(String str) {

@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/pages/changepage.dart';
 import 'package:flutter_application_1/pages/testpage.dart';
 import 'package:http/http.dart' as http;
 import 'instructionpage.dart';
@@ -95,29 +95,50 @@ class _FirstPageState extends State<FirstPage> {
             }
           )
         ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TestPage()),
-              );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(350, 40)),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              ),
-              child: const Text(
-                'Заступить на смену',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
+        Container(
+          margin: EdgeInsets.only(left:20, right:20, top:25),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(350, 70),
+              backgroundColor: Colors.grey,
+            ),
+            child: const Text(
+              'Изменить исходные данные',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20
               ),
             ),
-          ),
-        )
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChangePage()),
+              );
+            }
+          )
+        ),
+        Container(
+          margin: EdgeInsets.only(left:20, right:20, top:25),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(350, 70),
+              backgroundColor: Colors.grey,
+            ),
+            child: const Text(
+              'Заступить на смену',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChangePage()),
+              );
+            }
+          )
+        ),
       ]),
     );
   }
