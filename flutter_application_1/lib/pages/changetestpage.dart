@@ -19,7 +19,6 @@ class ChangeTestPage extends StatefulWidget {
 class _ChangeTestPageState extends State<ChangeTestPage> {
   final int codeindex;
   _ChangeTestPageState({required this.codeindex});
-
   String stringcodes = '';
   List _items = [];
   List _recom = [];
@@ -28,27 +27,33 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
   List<String> codes = List<String>.generate(50, (index) => '');
 
   void gencodes(String stringcodes) {
-    List<int> codedigits = List<int>.generate(50, (index) => 0);
     String s;
     int tmp;
+    int codedigits;
     codes = stringcodes.split(' ');
-    for (var i = 0; i < codes.length; i++){
-      s = codes[i];
-      tmp = s.indexOf('n');
-      if (tmp > -1) {
-        for (var j = tmp; j < s.length; j++){
-          if (isNumeric(s[j])){
-            codedigits[i] = int.parse(s[j]);
-            if ((s[j+1]).isNotEmpty) {
-              if (isNumeric(s[j+1])){
-                codedigits[i] = codedigits[i] + int.parse(s[j]);
-              }
-            }
-            answers[codedigits[i]] = true;
-            codedigits[i] = 0;
-          }
+    s = codes[codeindex];
+    if (s == '') {
+      print(s);
+      rJson();
+    } else {
+    print(s);
+    tmp = s.indexOf('n');
+    print(tmp);
+    if (tmp > -1) {
+      for (int i = tmp; i < s.length; i++){
+        if (isNumeric(s[i])){
+          codedigits = int.parse(s[i]);
+          //if ((s[i+1]).isNotEmpty) {
+            //if (isNumeric(s[i+1])){
+              //codedigits[i - tmp] = int.parse('${codedigits[i - tmp].toString}' + '${s[i+1]}');
+            //}
+          //}
+          print(s[i]);
+          answers[codedigits - 1] = true;
+          codedigits = 0;
         }
       }
+    }
     }
   }
 
@@ -58,11 +63,10 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
     }
     return double.tryParse(s) != null;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     gencodes(stringcodes);
-    rJson();
     List<Map<dynamic, dynamic>> listOfItems = [];
     List<Map<dynamic, dynamic>> recommendations = [];
     List<Map<dynamic, dynamic>> ordrecommendations = [];
@@ -85,61 +89,61 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
       }
     }
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: Text(
-                listOfItems[codeindex]["title"],
-                style: const TextStyle(
-                  fontSize: 20
-                ),
-              )
+      body: Column (
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+          child: Text(
+            listOfItems[codeindex]["title"],
+            style: TextStyle(
+              fontSize: 20
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 50),
-              child:SizedBox(
-                height:350,
-                child: ListView.builder(
-                  itemCount: listOfItems[codeindex]["title_answers"].length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: Column(
-                        children: [
-                          CheckboxListTile(
-                            title: Text(listOfItems[codeindex]["title_answers"][index]["title"].toString()),
-                            value: answers[index],
-                            onChanged: (value) {
-                              setState(() {
-                                answers[index] = value!;
-                              });
-                            },
-                          ),
-                          Divider(),
-                        ],
+          )
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 50),
+          child:SizedBox(
+            height:350,
+            child: ListView.builder(
+              itemCount: listOfItems[codeindex]["title_answers"].length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  child: Column(
+                    children: [
+                      CheckboxListTile(
+                        title: Text(listOfItems[codeindex]["title_answers"][index]["title"].toString()),
+                        value: answers[index],
+                        onChanged: (value) {
+                          setState(() {
+                            answers[index] = value!;
+                          });
+                        },
                       ),
-                    );
-                  }
-                )
-              )
-            ),
-          ],
-        )
+                      Divider(),
+                    ],
+                  ),
+                );
+              }
+            )
+          )
+        ),
+      ],
       )
     );
   }
   Future<void> rJson() async {
-    final localDirectory = await getExternalStorageDirectory();
     const localFileName = 'bd.json';
     const localFileName1 = 'quest.txt';
-    var locdir = localDirectory!.path; 
+    final localDirectory = await getExternalStorageDirectory();
+    var locdir = localDirectory!.path;
+    //var locdir = '/storage/emulated/0/Android/data/com.example.flutter_application_1/files';
     final file = File('$locdir/$localFileName');
     final file1 = File('$locdir/$localFileName1');
     final stroka = await file.readAsString();
     final data = await json.decode(stroka);
     final stringcode = await file1.readAsString();
     stringcodes = stringcode;
+    gencodes(stringcodes);
 
     setState(() {
       _items = data["data"]["primaryQuestions"];
