@@ -54,7 +54,6 @@ class _ReadJsonState extends State<ReadJson> {
 
   int pageChanged = 0;
   List<String> codes = List<String>.generate(50, (index) => '');
-  String tempcode = '';
   String rec = '';
   String codesrec = '';
   var finerecommendation = '';
@@ -183,14 +182,14 @@ class _ReadJsonState extends State<ReadJson> {
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: () {
+                    String tmp = "";
+                    tmp = listOfItems[position]["sign"] + listOfItems[position]["group"] + listOfItems[position]["vid"];
                     for (int i = 0; i < listOfItems[position]["title_answers"].length; i++){
                       if (answers[i]){
-                        tempcode = listOfItems[position]["sign"] + listOfItems[position]["group"] + listOfItems[position]["vid"] + "n" + (i + 1).toString();
-                        codes[position] = tempcode;
-                        tempcode = '';
-                        answers[i] = false;
+                        tmp = tmp + "n" + (i + 1).toString();
                       }
                     }
+                    codes[position] = tmp;
                     print(codes);
                     for (var i = 0; i < recommendations.length; i++) {
                       innerloop:
@@ -345,14 +344,14 @@ class _ReadJsonState extends State<ReadJson> {
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                    String tmp = "";
+                    tmp = listOfItems[position]["sign"] + listOfItems[position]["group"] + listOfItems[position]["vid"];
                     for (int i = 0; i < listOfItems[position]["title_answers"].length; i++){
                       if (answers[i]){
-                        tempcode = listOfItems[position]["sign"] + listOfItems[position]["group"] + listOfItems[position]["vid"] + "n" + (i + 1).toString();
-                        codes[position] = tempcode;
-                        tempcode = '';
-                        answers[i] = false;
+                        tmp = tmp + "n" + (i + 1).toString();
                       }
                     }
+                    codes[position] = tmp;
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(350, 70)),

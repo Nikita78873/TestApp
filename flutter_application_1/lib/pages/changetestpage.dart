@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/testpage.dart';
 import 'package:http/http.dart' as http;
+import 'changepage.dart';
 import 'firstpage.dart';
 import 'instructionpage.dart';
 import 'package:path_provider/path_provider.dart';
@@ -18,6 +19,7 @@ class ChangeTestPage extends StatefulWidget {
 
 class _ChangeTestPageState extends State<ChangeTestPage> {
   final int codeindex;
+  bool checker = true;
   _ChangeTestPageState({required this.codeindex});
   String stringcodes = '';
   List _items = [];
@@ -26,31 +28,34 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
   List<bool> answers = List<bool>.generate(15, (index) => false);
   List<String> codes = List<String>.generate(50, (index) => '');
 
-  void gencodes(String stringcodes) {
-    String s;
+  void gencodes() {
+    String s = '';
     int tmp;
     int codedigits;
     codes = stringcodes.split(' ');
-    s = codes[codeindex];
-    if (s == '') {
+    if (checker){
+    if (stringcodes == '') {
       print(s);
       rJson();
     } else {
-    print(s);
-    tmp = s.indexOf('n');
-    print(tmp);
-    if (tmp > -1) {
-      for (int i = tmp; i < s.length; i++){
-        if (isNumeric(s[i])){
-          codedigits = int.parse(s[i]);
-          //if ((s[i+1]).isNotEmpty) {
-            //if (isNumeric(s[i+1])){
-              //codedigits[i - tmp] = int.parse('${codedigits[i - tmp].toString}' + '${s[i+1]}');
-            //}
-          //}
-          print(s[i]);
-          answers[codedigits - 1] = true;
-          codedigits = 0;
+      s = codes[codeindex];
+      print(s);
+      tmp = s.indexOf('n');
+      print(tmp);
+      if (tmp > -1) {
+        for (int i = tmp; i < s.length; i++){
+          if (isNumeric(s[i])){
+            codedigits = int.parse(s[i]);
+            if (i != s.length - 1) {
+              if (isNumeric(s[i+1])){
+                codedigits = int.parse('${codedigits.toString}' + '${s[i+1]}');
+                i ++;
+             }
+            }
+            print(s[i]);
+            answers[codedigits - 1] = true;
+            codedigits = 0;
+          }
         }
       }
     }
@@ -66,7 +71,7 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
 
   @override
   Widget build(BuildContext context) {
-    gencodes(stringcodes);
+    gencodes();
     List<Map<dynamic, dynamic>> listOfItems = [];
     List<Map<dynamic, dynamic>> recommendations = [];
     List<Map<dynamic, dynamic>> ordrecommendations = [];
@@ -116,6 +121,7 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
                         onChanged: (value) {
                           setState(() {
                             answers[index] = value!;
+                            checker = false;
                           });
                         },
                       ),
@@ -127,6 +133,38 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
             )
           )
         ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+              onPressed: (){
+                String tmp = "";
+                tmp = listOfItems[codeindex]["sign"] + listOfItems[codeindex]["group"] + listOfItems[codeindex]["vid"];
+                for (int i = 0; i < listOfItems[codeindex]["title_answers"].length; i++){
+                  if (answers[i]){
+                    tmp = tmp + "n" + (i + 1).toString();
+                  }
+                }
+                codes[codeindex] = tmp;
+                changecodes();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChangePage()),
+                );
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(const Size(350, 70)),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              ),
+              child: const Text(
+                'Подтвердить',
+                style: TextStyle(
+                  fontSize: 24,
+                )
+              ),
+            )
+          )
+        )
       ],
       )
     );
@@ -136,19 +174,28 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
     const localFileName1 = 'quest.txt';
     final localDirectory = await getExternalStorageDirectory();
     var locdir = localDirectory!.path;
-    //var locdir = '/storage/emulated/0/Android/data/com.example.flutter_application_1/files';
     final file = File('$locdir/$localFileName');
     final file1 = File('$locdir/$localFileName1');
     final stroka = await file.readAsString();
     final data = await json.decode(stroka);
     final stringcode = await file1.readAsString();
     stringcodes = stringcode;
-    gencodes(stringcodes);
+    gencodes();
 
     setState(() {
       _items = data["data"]["primaryQuestions"];
       _recom = data["data"]["answers"]["recommendations_from_psychology"];
       _ordrecom = data["data"]["answers"]["recommendations_from_orders"];
     });
+  }
+  Future<void> changecodes() async {
+    final localDirectory = await getExternalStorageDirectory();
+    const localFileName = 'quest.txt';
+    var locdir = localDirectory!.path;
+    final file = File('$locdir/$localFileName');
+
+    file.create();
+    String stringcodes = codes.join(" ");
+    file.writeAsString(stringcodes);
   }
 }
