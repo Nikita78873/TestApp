@@ -27,6 +27,7 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
   List _ordrecom = [];
   List<bool> answers = List<bool>.generate(15, (index) => false);
   List<String> codes = List<String>.generate(50, (index) => '');
+  final ScrollController controller = ScrollController();
 
   void gencodes() {
     String s = '';
@@ -109,7 +110,12 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
           margin: EdgeInsets.only(top: 50),
           child:SizedBox(
             height:350,
+            child: Scrollbar(
+              thickness: 20.0,
+              thumbVisibility: true,
+              controller: controller,
             child: ListView.builder(
+              controller: controller,
               itemCount: listOfItems[codeindex]["title_answers"].length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
@@ -130,6 +136,7 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
                   ),
                 );
               }
+            )
             )
           )
         ),

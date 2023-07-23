@@ -36,6 +36,7 @@ class _ReadJsonState extends State<ReadJson> {
   List _recom = [];
   List _ordrecom = [];
   List<bool> answers = List<bool>.generate(15, (index) => false);
+  final ScrollController controller = ScrollController();
 
   Future<void> readJson() async {
     final localDirectory = await getExternalStorageDirectory();
@@ -316,6 +317,7 @@ class _ReadJsonState extends State<ReadJson> {
               child:SizedBox(
                 height:350,
                 child: ListView.builder(
+                  controller: controller,
                   itemCount: listOfItems[position]["title_answers"].length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(

@@ -20,11 +20,13 @@ class _InstPagetwoState extends State<Instpagetwo> {
   final String fineinstruction;
   final String fineordinstruction;
   _InstPagetwoState({required this.fineordinstruction, required this.fineinstruction});
+  final ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        controller: controller,
         child: Container( 
           margin: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
           child: Column(

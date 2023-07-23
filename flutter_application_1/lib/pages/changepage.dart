@@ -22,6 +22,7 @@ class _ChangePageState extends State<ChangePage> {
   List _ordrecom = [];
   List<bool> answers = List<bool>.generate(15, (index) => false);
   List<String> codes = List<String>.generate(50, (index) => '');
+  final ScrollController controller = ScrollController();
 
   Future<void> readJson() async {
     final localDirectory = await getExternalStorageDirectory();
@@ -91,7 +92,12 @@ class _ChangePageState extends State<ChangePage> {
             Container(
               child:SizedBox(
                 height:470,
+                child: Scrollbar(
+                  thickness: 20.0,
+                  thumbVisibility: true,
+                  controller: controller,
                 child: ListView.builder(
+                  controller: controller,
                   itemCount: _items.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
@@ -111,6 +117,7 @@ class _ChangePageState extends State<ChangePage> {
                       ),
                     );
                   }
+                )
                 )
               )
             ),
