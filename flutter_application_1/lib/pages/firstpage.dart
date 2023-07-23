@@ -21,6 +21,7 @@ class _FirstPageState extends State<FirstPage> {
   String fineordrecommendation = ''; 
   bool activebut = false;
   bool _isLoading = true;
+  bool information = false;
 
   @override
   void initState() {
@@ -51,12 +52,12 @@ class _FirstPageState extends State<FirstPage> {
       )
       :
       Column(children: <Widget>[
-        const Padding(
+        Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 9,
                 child: Text(
                   'Главная',
@@ -65,33 +66,34 @@ class _FirstPageState extends State<FirstPage> {
                     fontSize: 24,
                   ),
                 )
+              ),
+              Expanded(
+                flex: 1,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    minimumSize: const Size(20, 40),
+                  ),
+                  child: const Icon(
+                    Icons.help_outlined,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      information = !information;
+                    });
+                  }
+                )
               )
             ]
           ),
         ),
         Container(
-          margin: EdgeInsets.only(left:20, right:20, top:15),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(350, 70),
-              backgroundColor: Colors.grey,
+          child: SizedBox(
+            width: 350,
+            child: Visibility(
+              visible: information,
+              child: Text(' Эта кнопка нужна для этого, эта для этого, эта для этого, эта для этого, эта для этого')
             ),
-            child: const Text(
-              'Показать последние инструкции',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20
-              ),
-            ),
-            onPressed: () {
-              if (activebut){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: finerecommendation, fineordinstruction: fineordrecommendation,)),
-                );
-                print(finerecommendation);
-              };
-            }
           )
         ),
         Container(
@@ -113,6 +115,31 @@ class _FirstPageState extends State<FirstPage> {
                 context,
                 MaterialPageRoute(builder: (context) => TestPage()),
               );
+            }
+          )
+        ),
+        Container(
+          margin: EdgeInsets.only(left:20, right:20, top:25),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(350, 70),
+              backgroundColor: Colors.grey,
+            ),
+            child: const Text(
+              'Показать последние инструкции',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20
+              ),
+            ),
+            onPressed: () {
+              if (activebut){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: finerecommendation, fineordinstruction: fineordrecommendation,)),
+                );
+                print(finerecommendation);
+              };
             }
           )
         ),
@@ -153,10 +180,13 @@ class _FirstPageState extends State<FirstPage> {
               ),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ChangePage()),
-              );
+              if (activebut){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: finerecommendation, fineordinstruction: fineordrecommendation,)),
+                );
+                print(finerecommendation);
+              };
             }
           )
         ),

@@ -349,6 +349,7 @@ class _ReadJsonState extends State<ReadJson> {
                     for (int i = 0; i < listOfItems[position]["title_answers"].length; i++){
                       if (answers[i]){
                         tmp = tmp + "n" + (i + 1).toString();
+                        answers[i] = false;
                       }
                     }
                     codes[position] = tmp;
@@ -395,9 +396,9 @@ Future<void> prints(String fine, String fineord, List<String> codes) async{
 }
 
 String zap(String str) {
-  str = str.replaceAll('","', ' ');
-  str = str.replaceAll('"]', ' ');
-  str = str.replaceAll('["', ' ');
+  str = str.replaceAll('","', '');
+  str = str.replaceAll('"]', '');
+  str = str.replaceAll('["', '');
   return str;
 }
 
