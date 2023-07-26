@@ -31,6 +31,7 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(finerecommendation);
     return Scaffold(
       body: _isLoading
       ?
@@ -136,9 +137,10 @@ class _FirstPageState extends State<FirstPage> {
               if (activebut){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: finerecommendation, fineordinstruction: fineordrecommendation,)),
+                  MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: convertNewLine(finerecommendation), fineordinstruction: convertNewLine(fineordrecommendation))),
                 );
                 print(finerecommendation);
+                print(finerecommendation.indexOf(r'\n'));
               };
             }
           )
@@ -183,7 +185,7 @@ class _FirstPageState extends State<FirstPage> {
               if (activebut){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: finerecommendation, fineordinstruction: fineordrecommendation,)),
+                  MaterialPageRoute(builder: (context) => ReadJsons(fineinstruction: convertNewLine(finerecommendation), fineordinstruction: convertNewLine(fineordrecommendation))),
                 );
                 print(finerecommendation);
               };
@@ -196,26 +198,24 @@ class _FirstPageState extends State<FirstPage> {
   Future _getData() async {
     final localDirectory = await getExternalStorageDirectory();
     const localFileName = 'bd.json';
-    var locdir = localDirectory!.path; 
+    var locdir = localDirectory!.path;
     final file = File('$locdir/$localFileName');
     activebut = await getactivebut();
     print(activebut);
 
     setState(() {
-      _isLoading = true; // your loader has started to load
+      _isLoading = true;
     });
 
     http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response){
       file.create();
       file.writeAsString(response.body);
-      print(response.body);
-      print(file);
     }).catchError((error){
       print("Error");
     });
 
     setState(() {
-      _isLoading = false; 
+      _isLoading = false;
     });
   }
   Future<bool> getactivebut() async {
@@ -223,7 +223,7 @@ class _FirstPageState extends State<FirstPage> {
     final localDirectory = await getExternalStorageDirectory();
     const localFileName = 'rec.txt';
     const localFileName1 = 'ordrec.txt';
-    var locdir = localDirectory!.path; 
+    var locdir = localDirectory!.path;
     final file = File('$locdir/$localFileName');
     final file1 = File('$locdir/$localFileName1');
 
@@ -233,5 +233,9 @@ class _FirstPageState extends State<FirstPage> {
       fineordrecommendation = await file1.readAsString();
     }
     return activebut;
+  }
+  String convertNewLine(String content) {
+    print("converting");
+    return content.replaceAll(r'\n', '\n');
   }
 }

@@ -398,7 +398,7 @@ Future<void> prints(String fine, String fineord, List<String> codes) async{
 }
 
 String zap(String str) {
-  str = str.replaceAll('","', '');
+  str = str.replaceAll('","', ' ');
   str = str.replaceAll('"]', '');
   str = str.replaceAll('["', '');
   return str;

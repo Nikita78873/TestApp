@@ -20,6 +20,7 @@ class _ChangePageState extends State<ChangePage> {
   List _items = [];
   List _recom = [];
   List _ordrecom = [];
+  bool information = false;
   List<bool> answers = List<bool>.generate(15, (index) => false);
   List<String> codes = List<String>.generate(50, (index) => '');
   final ScrollController controller = ScrollController();
@@ -76,6 +77,20 @@ class _ChangePageState extends State<ChangePage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
+                  style: TextButton.styleFrom(
+                    minimumSize: const Size(20, 40),
+                  ),
+                  child: const Icon(
+                    Icons.help_outlined,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      information = !information;
+                    });
+                  }
+                ),
+                TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -89,14 +104,22 @@ class _ChangePageState extends State<ChangePage> {
                 ),
               ]
             ),
-            Container(
-              child:SizedBox(
+            Column(
+              children: [ 
+                SizedBox(
+                  width: 350,
+                  child: Visibility(
+                    visible: information,
+                    child: Text(' Эта кнопка нужна для этого, эта для этого, эта для этого, эта для этого, эта для этого')
+                  ),
+                ),
+                SizedBox(
                 height:470,
                 child: Scrollbar(
                   thickness: 20.0,
                   thumbVisibility: true,
                   controller: controller,
-                child: ListView.builder(
+                  child: ListView.builder(
                   controller: controller,
                   itemCount: _items.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -105,6 +128,7 @@ class _ChangePageState extends State<ChangePage> {
                         children: [
                           ListTile(
                             title: Text((index+1).toString() + " " + listOfItems[index]["title"]),
+                            subtitle: Text((listOfItems[index]["title_answers"][0]["title"]).toString() + "\n" + (listOfItems[index]["title_answers"][1]["title"]).toString()),
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -120,7 +144,7 @@ class _ChangePageState extends State<ChangePage> {
                 )
                 )
               )
-            ),
+          ]),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
