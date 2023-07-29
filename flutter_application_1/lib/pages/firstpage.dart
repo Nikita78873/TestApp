@@ -17,6 +17,8 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  int version = 0;
+  int verscode = 0;
   String finerecommendation = '';
   String fineordrecommendation = ''; 
   bool activebut = false;
@@ -26,7 +28,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   void initState() {
     super.initState();
-    _getData();
+    checkversion();
   }
 
   @override
@@ -207,9 +209,22 @@ class _FirstPageState extends State<FirstPage> {
       _isLoading = true;
     });
 
-    http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response){
-      file.create();
-      file.writeAsString(response.body);
+    http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response) async {
+      final data = json.decode(response.body);
+      int actversion = data["version"];
+      int actcode = data["code"];
+      if (await file.exists()) {
+        if (!((version == actversion) && (verscode == actcode))){
+          file.create();
+          file.writeAsString(response.body);
+        }
+        else {print(1);}
+      }
+      else {
+        file.create();
+        file.writeAsString(response.body);
+        print(2);
+      }
     }).catchError((error){
       print("Error");
     });
@@ -237,5 +252,24 @@ class _FirstPageState extends State<FirstPage> {
   String convertNewLine(String content) {
     print("converting");
     return content.replaceAll(r'\n', '\n');
+  }
+  Future<void> checkversion() async {
+    final localDirectory = await getExternalStorageDirectory();
+    const localFileName = 'bd.json';
+    var locdir = localDirectory!.path;
+    final file = File('$locdir/$localFileName');
+    if (await file.exists()){
+      final stroka = await file.readAsString();
+      final data = await json.decode(stroka);
+
+      setState(() {
+        version = data["version"];
+        verscode = data["code"];
+      }
+    );
+
+    }
+
+    _getData();
   }
 }
