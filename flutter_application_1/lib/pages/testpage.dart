@@ -318,7 +318,7 @@ class _ReadJsonState extends State<ReadJson> {
                 height:350,
                 child: ListView.builder(
                   controller: controller,
-                  itemCount: listOfItems[position]["title_answers"].length,
+                  itemCount: listOfItems[position]["number"],
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: Column(

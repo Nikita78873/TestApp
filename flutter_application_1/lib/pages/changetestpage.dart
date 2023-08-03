@@ -116,7 +116,7 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
               controller: controller,
             child: ListView.builder(
               controller: controller,
-              itemCount: listOfItems[codeindex]["title_answers"].length,
+              itemCount: listOfItems[codeindex]["number"],
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   child: Column(

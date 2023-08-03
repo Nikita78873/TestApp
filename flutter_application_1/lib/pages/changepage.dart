@@ -21,9 +21,16 @@ class _ChangePageState extends State<ChangePage> {
   List _recom = [];
   List _ordrecom = [];
   bool information = false;
-  List<bool> answers = List<bool>.generate(15, (index) => false);
+  String stringcodes = '';
+  List<List<bool>> answers = List.generate(40, (index) => List<bool>.generate(7, (index) => false));
   List<String> codes = List<String>.generate(50, (index) => '');
   final ScrollController controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    readJson();
+  }
 
   Future<void> readJson() async {
     final localDirectory = await getExternalStorageDirectory();
@@ -36,6 +43,7 @@ class _ChangePageState extends State<ChangePage> {
     final stringcode = await file1.readAsString();
     final data = await json.decode(stroka);
     codes = stringcode.split(' ');
+    gencodes();
 
     setState(() {
       _items = data["data"]["primaryQuestions"];
@@ -105,7 +113,7 @@ class _ChangePageState extends State<ChangePage> {
               ]
             ),
             Column(
-              children: [ 
+              children: [
                 SizedBox(
                   width: 350,
                   child: Visibility(
@@ -114,37 +122,56 @@ class _ChangePageState extends State<ChangePage> {
                   ),
                 ),
                 SizedBox(
-                height:470,
+                height:450,
                 child: Scrollbar(
                   thickness: 20.0,
                   thumbVisibility: true,
                   controller: controller,
                   child: ListView.builder(
                   controller: controller,
-                  itemCount: _items.length,
+                  itemCount: listOfItems.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: Column(
-                        children: [
-                          ListTile(
-                            title: Text((index+1).toString() + " " + listOfItems[index]["title"]),
-                            subtitle: Text((listOfItems[index]["title_answers"][0]["title"]).toString() + "\n" + (listOfItems[index]["title_answers"][1]["title"]).toString()),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ChangeTestPage(codeindex: index)),
-                              );
-                            }
-                          ),
-                        Divider()
-                        ]
-                      ),
+                    return Column(
+                      children: [
+                            ListTile(
+                              title: Text((index+1).toString() + " " + listOfItems[index]["title"],),
+                              subtitle: ListView.builder(
+                                shrinkWrap: true,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: listOfItems[index]["number"],
+                                itemBuilder: (BuildContext context, int index1) {
+                                  return CheckboxListTile(
+                                    title: Text(
+                                      ("\n" + listOfItems[index]["title_answers"][index1]["title"]).toString(),
+                                      style: TextStyle(color: Colors.black.withOpacity(0.5)),
+                                    ),
+                                    value: answers[index][index1], 
+                                    onChanged: (value) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => ChangeTestPage(codeindex: index)),
+                                      );
+                                    }, 
+                                  );
+                                },
+                              ),
+                              //Text((listOfItems[index]["title_answers"][index1]["title"]).toString()),
+                              //onChanged: () {
+                              //  Navigator.push(
+                              //    context,
+                              //    MaterialPageRoute(builder: (context) => ChangeTestPage(codeindex: index)),
+                              //  );
+                              //}
+                            ),
+                            Divider()
+                      ]
                     );
                   }
                 )
-                )
               )
-          ]),
+            )
+            ]
+            ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -230,5 +257,37 @@ class _ChangePageState extends State<ChangePage> {
     file.writeAsString(fine);
     file1.create();
     file1.writeAsString(fineord);
+  }
+  
+  void gencodes() {
+    String s = '';
+    int tmp;
+    int codedigits;
+    codes;
+      for (int ind = 0; ind < codes.length; ind++) {
+        s = codes[ind];
+        tmp = s.indexOf('n');
+        if (tmp > -1) {
+          for (int i = tmp; i < s.length; i++){
+            if (isNumeric(s[i])){
+              codedigits = int.parse(s[i]);
+              if (i != s.length - 1) {
+                if (isNumeric(s[i+1])){
+                  codedigits = int.parse('${codedigits.toString}' + '${s[i+1]}');
+                  i ++;
+                }
+              }
+              answers[ind][codedigits - 1] = true;
+              codedigits = 0;
+            }
+          }
+        }
+      }
+  }
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
   }
 }
