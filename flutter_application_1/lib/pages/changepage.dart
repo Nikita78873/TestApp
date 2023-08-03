@@ -43,7 +43,6 @@ class _ChangePageState extends State<ChangePage> {
     final stringcode = await file1.readAsString();
     final data = await json.decode(stroka);
     codes = stringcode.split(' ');
-    gencodes();
 
     setState(() {
       _items = data["data"]["primaryQuestions"];
@@ -54,7 +53,7 @@ class _ChangePageState extends State<ChangePage> {
 
   @override
   Widget build(BuildContext context) {
-    readJson();
+    gencodes();
     List<Map<dynamic, dynamic>> listOfItems = [];
     List<Map<dynamic, dynamic>> recommendations = [];
     List<Map<dynamic, dynamic>> ordrecommendations = [];
