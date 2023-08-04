@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,6 +50,9 @@ class _FirstPageState extends State<FirstPage> {
               title: Text(
                 'Происходит загрузка тестов с сервера',
                 textScaleFactor: 1.5,
+              ),
+              subtitle: Text(
+                'Если загрузка производится долго, проверьте ваше соединение'
               ),
             ),
         ]
@@ -217,20 +221,30 @@ class _FirstPageState extends State<FirstPage> {
         if (!((version == actversion) && (verscode == actcode))){
           file.create();
           file.writeAsString(response.body);
+          setState(() {
+            _isLoading = false;
+          });
         }
-        else {print(1);}
+        else {
+          print(1);
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
       else {
         file.create();
         file.writeAsString(response.body);
         print(2);
+        setState(() {
+          _isLoading = false;
+        });
       }
     }).catchError((error){
       print("Error");
-    });
-
-    setState(() {
-      _isLoading = false;
+      Future.delayed(Duration(seconds: 3), (){
+        _getData();
+      });
     });
   }
   Future<bool> getactivebut() async {
