@@ -35,7 +35,8 @@ class _ReadJsonState extends State<ReadJson> {
   List _items = [];
   List _recom = [];
   List _ordrecom = [];
-  List<bool> answers = List<bool>.generate(15, (index) => false);
+  List<List<bool>> answers = List.generate(40, (index) => List<bool>.generate(7, (index) => false));
+  //List<bool> answers = List<bool>.generate(15, (index) => false);
   final ScrollController controller = ScrollController();
 
   Future<void> readJson() async {
@@ -111,7 +112,9 @@ class _ReadJsonState extends State<ReadJson> {
                       Icons.arrow_back
                     ),
                     onPressed: (){
-                      _pageController.animateToPage(--pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                      if (position > 0) {
+                        _pageController.animateToPage(--pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                      }
                     }
                   ),
                 ),
@@ -156,17 +159,17 @@ class _ReadJsonState extends State<ReadJson> {
               child:SizedBox(
                 height:350,
                 child: ListView.builder(
-                  itemCount: listOfItems[position]["title_answers"].length,
+                  itemCount: listOfItems[position]["number"],
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: Column(
                         children: [
                           CheckboxListTile(
                             title: Text(listOfItems[position]["title_answers"][index]["title"].toString()),
-                            value: answers[index],
+                            value: answers[position][index],
                             onChanged: (value) {
                               setState(() {
-                                answers[index] = value!;
+                                answers[position][index] = value!;
                               });
                             },
                           ),
@@ -185,8 +188,8 @@ class _ReadJsonState extends State<ReadJson> {
                   onPressed: () {
                     String tmp = "";
                     tmp = listOfItems[position]["sign"] + listOfItems[position]["group"] + listOfItems[position]["vid"];
-                    for (int i = 0; i < listOfItems[position]["title_answers"].length; i++){
-                      if (answers[i]){
+                    for (int i = 0; i < listOfItems[position]["number"]; i++){
+                      if (answers[position][i]){
                         tmp = tmp + "n" + (i + 1).toString();
                       }
                     }
@@ -272,7 +275,9 @@ class _ReadJsonState extends State<ReadJson> {
                       Icons.arrow_back
                     ),
                     onPressed: (){
-                      _pageController.animateToPage(--pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                      if (position > 0) {
+                        _pageController.animateToPage(--pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+                      }
                     }
                   ),
                 ),
@@ -325,10 +330,10 @@ class _ReadJsonState extends State<ReadJson> {
                         children: [
                           CheckboxListTile(
                             title: Text(listOfItems[position]["title_answers"][index]["title"].toString()),
-                            value: answers[index],
+                            value: answers[position][index],
                             onChanged: (value) {
                               setState(() {
-                                answers[index] = value!;
+                                answers[position][index] = value!;
                               });
                             },
                           ),
@@ -348,10 +353,9 @@ class _ReadJsonState extends State<ReadJson> {
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
                     String tmp = "";
                     tmp = listOfItems[position]["sign"] + listOfItems[position]["group"] + listOfItems[position]["vid"];
-                    for (int i = 0; i < listOfItems[position]["title_answers"].length; i++){
-                      if (answers[i]){
+                    for (int i = 0; i < listOfItems[position]["number"]; i++){
+                      if (answers[position][i]){
                         tmp = tmp + "n" + (i + 1).toString();
-                        answers[i] = false;
                       }
                     }
                     codes[position] = tmp;
