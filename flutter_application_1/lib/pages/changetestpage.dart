@@ -23,8 +23,6 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
   _ChangeTestPageState({required this.codeindex});
   String stringcodes = '';
   List _items = [];
-  List _recom = [];
-  List _ordrecom = [];
   List<bool> answers = List<bool>.generate(15, (index) => false);
   List<String> codes = List<String>.generate(50, (index) => '');
   final ScrollController controller = ScrollController();
@@ -74,24 +72,10 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
   Widget build(BuildContext context) {
     gencodes();
     List<Map<dynamic, dynamic>> listOfItems = [];
-    List<Map<dynamic, dynamic>> recommendations = [];
-    List<Map<dynamic, dynamic>> ordrecommendations = [];
 
     for (dynamic item in _items) {
       if (item is Map) {
         listOfItems.add(item);
-      }
-    }
-    
-    for (dynamic item in _recom) {
-      if (item is Map) {
-        recommendations.add(item);
-      }
-    }
-
-    for (dynamic item in _ordrecom) {
-      if (item is Map) {
-        ordrecommendations.add(item);
       }
     }
     return Scaffold(
@@ -191,8 +175,6 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
 
     setState(() {
       _items = data["data"]["primaryQuestions"];
-      _recom = data["data"]["answers"]["recommendations_from_psychology"];
-      _ordrecom = data["data"]["answers"]["recommendations_from_orders"];
     });
   }
   Future<void> changecodes() async {

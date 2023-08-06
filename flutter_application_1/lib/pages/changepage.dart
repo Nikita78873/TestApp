@@ -154,13 +154,6 @@ class _ChangePageState extends State<ChangePage> {
                                   );
                                 },
                               ),
-                              //Text((listOfItems[index]["title_answers"][index1]["title"]).toString()),
-                              //onChanged: () {
-                              //  Navigator.push(
-                              //    context,
-                              //    MaterialPageRoute(builder: (context) => ChangeTestPage(codeindex: index)),
-                              //  );
-                              //}
                             ),
                             Divider()
                       ]

@@ -36,7 +36,6 @@ class _ReadJsonState extends State<ReadJson> {
   List _recom = [];
   List _ordrecom = [];
   List<List<bool>> answers = List.generate(40, (index) => List<bool>.generate(7, (index) => false));
-  //List<bool> answers = List<bool>.generate(15, (index) => false);
   final ScrollController controller = ScrollController();
 
   Future<void> readJson() async {
