@@ -240,11 +240,19 @@ class _FirstPageState extends State<FirstPage> {
           _isLoading = false;
         });
       }
-    }).catchError((error){
-      print("Error");
-      Future.delayed(Duration(seconds: 3), (){
-        _getData();
-      });
+    }).catchError((error) async {
+      if (await file.exists()){
+        print("Error 1");
+        setState(() {
+          _isLoading = false;
+        });
+      }
+      else {
+        print("Error 2");
+        Future.delayed(Duration(seconds: 3), (){
+          _getData();
+        });
+      }
     });
   }
   Future<bool> getactivebut() async {
