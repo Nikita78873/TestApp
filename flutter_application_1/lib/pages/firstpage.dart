@@ -213,7 +213,7 @@ class _FirstPageState extends State<FirstPage> {
       _isLoading = true;
     });
 
-    http.get(Uri.parse('http://a0839049.xsph.ru/api/packet/current/getpacket')).then((response) async {
+    http.get(Uri.parse('http://a0849407.xsph.ru/api/packet/current/getpacket')).then((response) async {
       final data = json.decode(response.body);
       int actversion = data["version"];
       int actcode = data["code"];
