@@ -11,26 +11,14 @@ import 'package:path_provider/path_provider.dart';
 
 import 'firstpage.dart';
 
-class TestPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
- 
-    return MaterialApp(
-      home: Scaffold(
-        body: ReadJson(),
-      ),
-    );
-  }
-}
-
-class ReadJson extends StatefulWidget {
-  const ReadJson({Key? key}) : super(key: key);
+class TestPage extends StatefulWidget {
+  const TestPage({Key? key}) : super(key: key);
  
   @override
-  _ReadJsonState createState() => _ReadJsonState();
+  _TestPageState createState() => _TestPageState();
 }
  
-class _ReadJsonState extends State<ReadJson> {
+class _TestPageState extends State<TestPage> {
   PageController _pageController = PageController();
   List _items = [];
   List _recom = [];
@@ -85,7 +73,9 @@ class _ReadJsonState extends State<ReadJson> {
       }
     }
 
-    return PageView.builder(
+    return Scaffold(
+      body:
+    PageView.builder(
       physics: const NeverScrollableScrollPhysics(),
       controller: _pageController,
       onPageChanged: (index) {
@@ -377,7 +367,8 @@ class _ReadJsonState extends State<ReadJson> {
         );
       }
     }
-  );
+  )
+    );
   }
 }
 
