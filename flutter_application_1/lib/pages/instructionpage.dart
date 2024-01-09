@@ -68,10 +68,10 @@ class _ReadJSonsState extends State<ReadJsons> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 5),
+          margin: EdgeInsets.all(5),
           child: SizedBox(
-            height: 250,
-            width: 400,
+            height: MediaQuery.of(context).size.height / 3,
+            width: MediaQuery.of(context).size.width / 1.05,
             child: Scrollbar(
               thickness: 20.0,
               thumbVisibility: true,
@@ -96,6 +96,8 @@ class _ReadJSonsState extends State<ReadJsons> {
           )
         ),
         Container(
+          height: MediaQuery.of(context).size.height / 20,
+          width: MediaQuery.of(context).size.width / 1.05,
           child: ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -106,6 +108,7 @@ class _ReadJSonsState extends State<ReadJsons> {
             style: ButtonStyle(
               minimumSize: MaterialStateProperty.all(const Size(400, 30)),
               backgroundColor: MaterialStateProperty.all<Color>(const Color.fromRGBO(230, 230, 230, 3)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)))
             ),
             child: const Text(
               "нажмите, чтобы развернуть",
@@ -116,10 +119,10 @@ class _ReadJSonsState extends State<ReadJsons> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.all(5),
           child: SizedBox(
-            height: 250,
-            width: 400,
+            height: MediaQuery.of(context).size.height / 3,
+            width: MediaQuery.of(context).size.width / 1.05,
             child: Scrollbar(
               thickness: 20.0,
               thumbVisibility: true,
@@ -144,6 +147,8 @@ class _ReadJSonsState extends State<ReadJsons> {
           )
         ),
         Container(
+          height: MediaQuery.of(context).size.height / 20,
+          width: MediaQuery.of(context).size.width / 1.05,
           child: ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -154,6 +159,7 @@ class _ReadJSonsState extends State<ReadJsons> {
             style: ButtonStyle(
               minimumSize: MaterialStateProperty.all(const Size(400, 30)),
               backgroundColor: MaterialStateProperty.all<Color>(const Color.fromRGBO(230, 230, 230, 3)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(1))),
             ),
             child: const Text(
               "нажмите, чтобы развернуть",

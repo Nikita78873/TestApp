@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.6 <=3.0.3'
+  sdk: '>=3.0.0 <=4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -96,3 +96,5 @@ flutter:
     - assets/psycho_recommendations.json
     - assets/questions.json
     - assets/order_recommendations.json
+    - assets/logo.png
+    - assets/title_back.png

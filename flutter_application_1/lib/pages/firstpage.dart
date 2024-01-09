@@ -41,8 +41,7 @@ class _FirstPageState extends State<FirstPage> {
       Column(
         children : [
           SizedBox(height: 200,),
-            ListTile(
-              titleAlignment: ListTileTitleAlignment.center,
+            ListTile(    
               leading: LoadingAnimationWidget.fourRotatingDots(
                 color: Color.fromARGB(255, 12, 110, 42),
                 size: 50,
@@ -104,11 +103,13 @@ class _FirstPageState extends State<FirstPage> {
           )
         ),
         Container(
-          margin: EdgeInsets.only(left:20, right:20, top:25),
+          height: MediaQuery.of(context).size.height / 10,
+          width: MediaQuery.of(context).size.width / 1.15,
+          margin: EdgeInsets.all(10),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(350, 70),
-              backgroundColor: Colors.grey,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(252, 161, 161, 161)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))
             ),
             child: const Text(
               'Ввести исходные данные',
@@ -116,6 +117,7 @@ class _FirstPageState extends State<FirstPage> {
                 color: Colors.black,
                 fontSize: 20
               ),
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
               Navigator.push(
@@ -126,11 +128,13 @@ class _FirstPageState extends State<FirstPage> {
           )
         ),
         Container(
-          margin: EdgeInsets.only(left:20, right:20, top:25),
+          height: MediaQuery.of(context).size.height / 10,
+          width: MediaQuery.of(context).size.width / 1.15,
+          margin: EdgeInsets.all(10),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(350, 70),
-              backgroundColor: Colors.grey,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(252, 161, 161, 161)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))
             ),
             child: const Text(
               'Показать последние инструкции',
@@ -138,6 +142,7 @@ class _FirstPageState extends State<FirstPage> {
                 color: Colors.black,
                 fontSize: 20
               ),
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
               if (activebut){
@@ -152,11 +157,13 @@ class _FirstPageState extends State<FirstPage> {
           )
         ),
         Container(
-          margin: EdgeInsets.only(left:20, right:20, top:25),
+          height: MediaQuery.of(context).size.height / 10,
+          width: MediaQuery.of(context).size.width / 1.15,
+          margin: EdgeInsets.all(10),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(350, 70),
-              backgroundColor: Colors.grey,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(252, 161, 161, 161)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))
             ),
             child: const Text(
               'Изменить исходные данные',
@@ -164,6 +171,7 @@ class _FirstPageState extends State<FirstPage> {
                 color: Colors.black,
                 fontSize: 20
               ),
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
               Navigator.push(
@@ -174,11 +182,13 @@ class _FirstPageState extends State<FirstPage> {
           )
         ),
         Container(
-          margin: EdgeInsets.only(left:20, right:20, top:25),
+          height: MediaQuery.of(context).size.height / 10,
+          width: MediaQuery.of(context).size.width / 1.15,
+          margin: EdgeInsets.all(10),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(350, 70),
-              backgroundColor: Colors.grey,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(252, 161, 161, 161)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))
             ),
             child: const Text(
               'Заступить на смену',
@@ -186,6 +196,7 @@ class _FirstPageState extends State<FirstPage> {
                 color: Colors.black,
                 fontSize: 20
               ),
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
               if (activebut){
@@ -213,12 +224,12 @@ class _FirstPageState extends State<FirstPage> {
       _isLoading = true;
     });
 
-    http.get(Uri.parse('http://a0849407.xsph.ru/api/packet/current/getpacket')).then((response) async {
+    http.get(Uri.parse('http://ests.irgups.ru/api/packet/current/getpacket')).then((response) async {
       final data = json.decode(response.body);
       int actversion = data["version"];
       int actcode = data["code"];
       if (await file.exists()) {
-        if (!((version == actversion) && (verscode == actcode))){
+        if ((version != actversion) || (verscode != actcode)){
           file.create();
           file.writeAsString(response.body);
           setState(() {

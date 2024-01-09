@@ -43,7 +43,6 @@ class _TestPageState extends State<TestPage> {
 
   int pageChanged = 0;
   List<String> codes = List<String>.generate(50, (index) => '');
-  String rec = '';
   String codesrec = '';
   var finerecommendation = '';
   var fineordrecommendation = '';
@@ -146,9 +145,9 @@ class _TestPageState extends State<TestPage> {
             Container(
               margin: const EdgeInsets.only(top: 50),
               child:SizedBox(
-                height:350,
+                height:MediaQuery.of(context).size.height / 2,
                 child: ListView.builder(
-                  itemCount: listOfItems[position]["number"],
+                  itemCount: int.parse(listOfItems[position]["number"]),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: Column(
@@ -170,81 +169,129 @@ class _TestPageState extends State<TestPage> {
                 )
               )
             ),
-            Expanded(
-              child: Align(
+            Container(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: () {
                     String tmp = "";
                     tmp = listOfItems[position]["sign"] + listOfItems[position]["group"] + listOfItems[position]["vid"];
-                    for (int i = 0; i < listOfItems[position]["number"]; i++){
+                    for (int i = 0; i < int.parse(listOfItems[position]["number"]); i++){
                       if (answers[position][i]){
                         tmp = tmp + "n" + (i + 1).toString();
                       }
                     }
                     codes[position] = tmp;
                     print(codes);
+                    print(3);
+
                     for (var i = 0; i < recommendations.length; i++) {
-                      innerloop:
+                      outerloop:
                       for (var j = 0; j < recommendations[i]["code"].length; j++){
-                        rec = json.encode(recommendations[i]["code"][j]);
-                        for (var code1 = 0; listOfItems.length > code1; code1++){
-                          for (var code2 = 0; listOfItems.length > code2; code2++){
-                            codesrec = codes[code1] + "+" + codes[code2];
-                            if (bigzap(rec) == codes[code2]){
-                              finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
-                              print(finerecommendation);
-                              break innerloop;
-                            }
-                            if (bigzap(rec) == codesrec){
-                              finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
-                              print(finerecommendation);
-                              break innerloop;
-                            }
+                        List<String> rec = bigzap(json.encode(recommendations[i]["code"][j])).split('+');
+                        int counter = 0;
+                        for (var k = 0; k < codes.length; k++){
+                          if (codecontains(rec, codes[k])) {
+                            counter++;
                           }
+                        }
+                        if (counter == rec.length) {
+                          finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
+                          break outerloop;
                         }
                       }
                     }
+
                     for (var i = 0; i < ordrecommendations.length; i++) {
-                      innerloop2:
+                      outerloop1:
                       for (var j = 0; j < ordrecommendations[i]["code"].length; j++){
-                        rec = json.encode(ordrecommendations[i]["code"][j]);
-                        for (var code1 = 0; listOfItems.length > code1; code1++){
-                          for (var code2 = 0; listOfItems.length > code2; code2++){
-                            codesrec = codes[code1] + "+" + codes[code2];
-                            if (bigzap(rec) == codes[code2]){
-                              fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
-                              print(fineordrecommendation);
-                              break innerloop2;
-                            }
-                            if (bigzap(rec) == codesrec){
-                              fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
-                              print(fineordrecommendation);
-                              break innerloop2;
-                            }
-                          }
+                        List<String> rec = bigzap(json.encode(ordrecommendations[i]["code"][j])).split('+');
+                        int counter = 0;
+                        for (var k = 0; k < codes.length; k++){
+                          if (codecontains(rec, codes[k])) {
+                            counter++;
+                          } 
+                        }
+                        if (counter == rec.length) {
+                          fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
+                          break outerloop1;
                         }
                       }
                     }
-                    prints(finerecommendation, fineordrecommendation, codes);
+
+                    // for (var i = 0; i < recommendations.length; i++) {
+                    //   innerloop:
+                    //   for (var j = 0; j < recommendations[i]["code"].length; j++){
+                    //     rec = json.encode(recommendations[i]["code"][j]);
+                    //     for (var code1 = 0; listOfItems.length > code1; code1++){
+                    //       for (var code2 = 0; listOfItems.length > code2; code2++){
+                    //         codesrec = codes[code1] + "+" + codes[code2];
+                    //         if (bigzap(rec) == codes[code2]){
+                    //           finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
+                    //           print(finerecommendation);
+                    //           break innerloop;
+                    //         }
+                    //         if (bigzap(rec) == codesrec){
+                    //           finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
+                    //           print(finerecommendation);
+                    //           break innerloop;
+                    //         }
+                    //       }
+                    //     }
+                    //   }
+                    // }
+                    // for (var i = 0; i < ordrecommendations.length; i++) {
+                    //   innerloop2:
+                    //   for (var j = 0; j < ordrecommendations[i]["code"].length; j++){
+                    //     rec = json.encode(ordrecommendations[i]["code"][j]);
+                    //     for (var code1 = 0; listOfItems.length > code1; code1++){
+                    //       for (var code2 = 0; listOfItems.length > code2; code2++){
+                    //         codesrec = codes[code1] + "+" + codes[code2];
+                    //         if (bigzap(rec) == codes[code2]){
+                    //           fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
+                    //           print(fineordrecommendation);
+                    //           break innerloop2;
+                    //         }
+                    //         if (bigzap(rec) == codesrec){
+                    //           fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
+                    //           print(fineordrecommendation);
+                    //           break innerloop2;
+                    //         }
+                    //       }
+                    //     }
+                    //   }
+                    // }
+                    if (finerecommendation == '' && fineordrecommendation == ''){
+                      prints("Психологические рекомендации не сформированы, попробуйте пройти тест снова", "Правовые рекомендации не сформированы, попробуйте пройти тест снова", codes);
+                    }
+                    else if (finerecommendation == ''){
+                      prints("Психологические рекомендации не сформированы, попробуйте пройти тест снова", fineordrecommendation, codes);
+                    }
+                    else if (fineordrecommendation == ''){
+                      prints(finerecommendation, "Правовые рекомендации не сформированы, попробуйте пройти тест снова", codes);
+                    }
+                    else {
+                      prints(finerecommendation, fineordrecommendation, codes);
+                    }
+                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => FirstPage()),
                     );
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(const Size(350, 70)),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width / 1.05, MediaQuery.of(context).size.height / 12,)),
+                    backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(252, 0, 0, 0)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))
                   ),
                   child: const Text(
                     'Закончить тестирование',
                     style: TextStyle(
                       fontSize: 24,
+                      color: Colors.white
                     )
                   ),
                 )
               )
-            )
             ]
           )
         );
@@ -309,10 +356,10 @@ class _TestPageState extends State<TestPage> {
             Container(
               margin: const EdgeInsets.only(top: 50),
               child:SizedBox(
-                height:350,
+                height:MediaQuery.of(context).size.height / 2,
                 child: ListView.builder(
                   controller: controller,
-                  itemCount: listOfItems[position]["number"],
+                  itemCount: int.parse(listOfItems[position]["number"]),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: Column(
@@ -333,16 +380,15 @@ class _TestPageState extends State<TestPage> {
                   }
                 )
               )
-            ),
-            Expanded(
-              child: Align(
+              ),
+              Container(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: (){
                     _pageController.animateToPage(++pageChanged, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
                     String tmp = "";
                     tmp = listOfItems[position]["sign"] + listOfItems[position]["group"] + listOfItems[position]["vid"];
-                    for (int i = 0; i < listOfItems[position]["number"]; i++){
+                    for (int i = 0; i < int.parse(listOfItems[position]["number"]) ; i++){
                       if (answers[position][i]){
                         tmp = tmp + "n" + (i + 1).toString();
                       }
@@ -350,18 +396,19 @@ class _TestPageState extends State<TestPage> {
                     codes[position] = tmp;
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(const Size(350, 70)),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width / 1.05, MediaQuery.of(context).size.height / 12,)),
+                    backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(252, 0, 0, 0)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))
                   ),
                   child: const Text(
                     'Следующий вопрос',
                     style: TextStyle(
                       fontSize: 24,
+                      color: Colors.white
                     )
                   ),
                 )
               )
-            )
             ]
           )
         );
@@ -403,4 +450,13 @@ String bigzap(String str) {
   str = str.replaceAll(',', '');
   str = str.replaceAll(' ', '');
   return str;
+}
+
+bool codecontains(List<String> codes, String code){
+  for (int i = 0; i < codes.length; i++){
+    if (codes[i] == code){
+      return true;
+    }
+  }
+  return false;
 }

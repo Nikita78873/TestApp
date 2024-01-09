@@ -6,13 +6,15 @@ import 'package:flutter_application_1/pages/instpage1.dart';
 import 'package:flutter_application_1/pages/instpage2.dart';
 import 'package:flutter_application_1/pages/instructionpage.dart';
 import 'package:flutter_application_1/pages/testpage.dart';
+import 'package:flutter_application_1/pages/titul.dart';
 
 
 void main() => runApp(MaterialApp(
 
-  initialRoute: '/',
+  initialRoute: 'titul',
   routes: {
-    '/':(context) => FirstPage(), 
+    '/':(context) => FirstPage(),
+    'titul':(context) => Titul(),
     '/primary':(context) => ReadJsons(fineinstruction: '',fineordinstruction: ''),
     '/secondary':(context) => TestPage(),
     '/instructionsopened':(context) => Instpageone(fineinstruction: '', fineordinstruction: ''),

@@ -93,14 +93,14 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
         Container(
           margin: EdgeInsets.only(top: 50),
           child:SizedBox(
-            height:350,
+            height: MediaQuery.of(context).size.height / 1.6,
             child: Scrollbar(
               thickness: 20.0,
               thumbVisibility: true,
               controller: controller,
             child: ListView.builder(
               controller: controller,
-              itemCount: listOfItems[codeindex]["number"],
+              itemCount: int.parse(listOfItems[codeindex]["number"]) ,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   child: Column(
@@ -146,11 +146,13 @@ class _ChangeTestPageState extends State<ChangeTestPage> {
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(const Size(350, 70)),
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
               ),
               child: const Text(
                 'Подтвердить',
                 style: TextStyle(
                   fontSize: 24,
+                  color: Colors.white,
                 )
               ),
             )

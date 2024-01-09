@@ -22,6 +22,7 @@ class _ChangePageState extends State<ChangePage> {
   List _ordrecom = [];
   bool information = false;
   String stringcodes = '';
+  String finerecommendation = '', fineordrecommendation = '';
   List<List<bool>> answers = List.generate(40, (index) => List<bool>.generate(7, (index) => false));
   List<String> codes = List<String>.generate(50, (index) => '');
   final ScrollController controller = ScrollController();
@@ -114,14 +115,14 @@ class _ChangePageState extends State<ChangePage> {
             Column(
               children: [
                 SizedBox(
-                  width: 350,
+                  width: MediaQuery.of(context).size.width / 1.05,
                   child: Visibility(
                     visible: information,
-                    child: Text(' Эта кнопка нужна для этого, эта для этого, эта для этого, эта для этого, эта для этого')
+                    child: Text(' Эта кнопка нужна для этого, эта для этого, эта для этого, эта для этого, эта для этого', textAlign: TextAlign.center,)
                   ),
                 ),
                 SizedBox(
-                height:450,
+                height: MediaQuery.of(context).size.height / 1.6,
                 child: Scrollbar(
                   thickness: 20.0,
                   thumbVisibility: true,
@@ -137,7 +138,7 @@ class _ChangePageState extends State<ChangePage> {
                               subtitle: ListView.builder(
                                 shrinkWrap: true,
                                 physics: ClampingScrollPhysics(),
-                                itemCount: listOfItems[index]["number"],
+                                itemCount: int.parse(listOfItems[index]["number"]) ,
                                 itemBuilder: (BuildContext context, int index1) {
                                   return CheckboxListTile(
                                     title: Text(
@@ -169,63 +170,109 @@ class _ChangePageState extends State<ChangePage> {
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: (){
-                    String rec, codesrec, finerecommendation = '', fineordrecommendation = '';
                     for (var i = 0; i < recommendations.length; i++) {
-                      innerloop:
+                      outerloop:
                       for (var j = 0; j < recommendations[i]["code"].length; j++){
-                        rec = json.encode(recommendations[i]["code"][j]);
-                        for (var code1 = 0; listOfItems.length > code1; code1++){
-                          for (var code2 = 0; listOfItems.length > code2; code2++){
-                            codesrec = codes[code1] + "+" + codes[code2];
-                            if (bigzap(rec) == codes[code2]){
-                              finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
-                              print(finerecommendation);
-                              break innerloop;
-                            }
-                            if (bigzap(rec) == codesrec){
-                              finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
-                              print(finerecommendation);
-                              break innerloop;
-                            }
+                        List<String> rec = bigzap(json.encode(recommendations[i]["code"][j])).split('+');
+                        int counter = 0;
+                        for (var k = 0; k < codes.length; k++){
+                          if (codecontains(rec, codes[k])) {
+                            counter++;
                           }
+                        }
+                        if (counter == rec.length) {
+                          finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
+                          break outerloop;
                         }
                       }
                     }
+
                     for (var i = 0; i < ordrecommendations.length; i++) {
-                      innerloop2:
+                      outerloop1:
                       for (var j = 0; j < ordrecommendations[i]["code"].length; j++){
-                        rec = json.encode(ordrecommendations[i]["code"][j]);
-                        for (var code1 = 0; listOfItems.length > code1; code1++){
-                          for (var code2 = 0; listOfItems.length > code2; code2++){
-                            codesrec = codes[code1] + "+" + codes[code2];
-                            if (bigzap(rec) == codes[code2]){
-                              fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
-                              print(fineordrecommendation);
-                              break innerloop2;
-                            }
-                            if (bigzap(rec) == codesrec){
-                              fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
-                              print(fineordrecommendation);
-                              break innerloop2;
-                            }
-                          }
+                        List<String> rec = bigzap(json.encode(ordrecommendations[i]["code"][j])).split('+');
+                        int counter = 0;
+                        for (var k = 0; k < codes.length; k++){
+                          if (codecontains(rec, codes[k])) {
+                            counter++;
+                          } 
+                        }
+                        if (counter == rec.length) {
+                          fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
+                          break outerloop1;
                         }
                       }
                     }
-                    printrecs(finerecommendation, fineordrecommendation);
+
+                    // for (var i = 0; i < recommendations.length; i++) {
+                    //   innerloop:
+                    //   for (var j = 0; j < recommendations[i]["code"].length; j++){
+                    //     rec = json.encode(recommendations[i]["code"][j]);
+                    //     for (var code1 = 0; listOfItems.length > code1; code1++){
+                    //       for (var code2 = 0; listOfItems.length > code2; code2++){
+                    //         codesrec = codes[code1] + "+" + codes[code2];
+                    //         if (bigzap(rec) == codes[code2]){
+                    //           finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
+                    //           print(finerecommendation);
+                    //           break innerloop;
+                    //         }
+                    //         if (bigzap(rec) == codesrec){
+                    //           finerecommendation = finerecommendation + zap(json.encode(recommendations[i]["data"]));
+                    //           print(finerecommendation);
+                    //           break innerloop;
+                    //         }
+                    //       }
+                    //     }
+                    //   }
+                    // }
+                    // for (var i = 0; i < ordrecommendations.length; i++) {
+                    //   innerloop2:
+                    //   for (var j = 0; j < ordrecommendations[i]["code"].length; j++){
+                    //     rec = json.encode(ordrecommendations[i]["code"][j]);
+                    //     for (var code1 = 0; listOfItems.length > code1; code1++){
+                    //       for (var code2 = 0; listOfItems.length > code2; code2++){
+                    //         codesrec = codes[code1] + "+" + codes[code2];
+                    //         if (bigzap(rec) == codes[code2]){
+                    //           fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
+                    //           print(fineordrecommendation);
+                    //           break innerloop2;
+                    //         }
+                    //         if (bigzap(rec) == codesrec){
+                    //           fineordrecommendation = fineordrecommendation + zap(json.encode(ordrecommendations[i]["data"]));
+                    //           print(fineordrecommendation);
+                    //           break innerloop2;
+                    //         }
+                    //       }
+                    //     }
+                    //   }
+                    // }
+                    if (finerecommendation == '' && fineordrecommendation == ''){
+                      printrecs("Психологические рекомендации не сформированы, попробуйте пройти тест снова", "Правовые рекомендации не сформированы, попробуйте пройти тест снова");
+                    }
+                    else if (finerecommendation == ''){
+                      printrecs("Психологические рекомендации не сформированы, попробуйте пройти тест снова", fineordrecommendation);
+                    }
+                    else if (fineordrecommendation == ''){
+                      printrecs(finerecommendation, "Правовые рекомендации не сформированы, попробуйте пройти тест снова");
+                    }
+                    else {
+                      printrecs(finerecommendation, fineordrecommendation);
+                    }
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => FirstPage()),
                     );
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(const Size(350, 70)),
+                    minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width / 1.1, MediaQuery.of(context).size.height / 11)),
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                   ),
                   child: const Text(
                     'Подтвердить',
                     style: TextStyle(
                       fontSize: 24,
+                      color: Colors.white,
                     )
                   ),
                 )
